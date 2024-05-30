@@ -1,10 +1,10 @@
-import {UserIcon} from '@sanity/icons'
+import {UserIcon as icon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 
-export default defineType({
-  name: 'author',
-  title: 'Author',
-  icon: UserIcon,
+export const memberType = defineType({
+  name: 'member',
+  title: 'Member',
+  icon: icon,
   type: 'document',
   fields: [
     defineField({
