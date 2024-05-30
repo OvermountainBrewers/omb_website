@@ -9,5 +9,17 @@ export default defineType({
       name: 'name',
       type: 'string',
     }),
+    defineField({
+      name: 'date',
+      type: 'datetime',
+    }),
+    defineField({
+      name: 'location',
+      type: 'string',
+    }),
+    defineField({
+      name: 'description',
+      type: 'text',
+    }),
   ],
 })
