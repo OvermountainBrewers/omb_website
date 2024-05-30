@@ -1,5 +1,6 @@
-import authorType from './author'
-import eventType from './event'
-import postType from './post'
+import {memberType} from './member'
+import {eventType} from './event'
+import {resourceType} from './resource'
+import {postType} from './post'
 
-export const schemaTypes = [authorType, eventType, postType]
+export const schemaTypes = [memberType, eventType, resourceType, postType]

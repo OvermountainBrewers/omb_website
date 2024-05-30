@@ -1,9 +1,11 @@
+import {SparkleIcon as icon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 
-export default defineType({
+export const eventType = defineType({
   name: 'event',
   title: 'Event',
   type: 'document',
+  icon: icon,
   fields: [
     defineField({
       name: 'name',

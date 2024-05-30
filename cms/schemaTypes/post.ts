@@ -1,8 +1,8 @@
-import {BookIcon} from '@sanity/icons'
+import {BookIcon as icon} from '@sanity/icons'
 import {format, parseISO} from 'date-fns'
 import {defineField, defineType} from 'sanity'
 
-import authorType from './author'
+import {memberType} from './member'
 
 /**
  * This file is the schema definition for a post.
@@ -16,10 +16,10 @@ import authorType from './author'
 
  */
 
-export default defineType({
+export const postType = defineType({
   name: 'post',
   title: 'Post',
-  icon: BookIcon,
+  icon: icon,
   type: 'document',
   fields: [
     defineField({
@@ -90,7 +90,7 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: [{type: authorType.name}],
+      to: [{type: memberType.name}],
     }),
   ],
   preview: {
