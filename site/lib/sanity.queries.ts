@@ -1,5 +1,12 @@
 import { groq } from "next-sanity";
 
+const membersQuery = groq`
+*[_type == "member"] {
+  name,
+  picture,
+}
+`;
+
 const postFields = groq`
   _id,
   title,
