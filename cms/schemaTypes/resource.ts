@@ -14,17 +14,14 @@ export const resourceType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    }),
+    defineField({
       name: 'file',
       title: 'File',
       type: 'file',
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-          description: 'Important for SEO and accessiblity.',
-        },
-      ],
       validation: (rule) => rule.required(),
     }),
   ],
