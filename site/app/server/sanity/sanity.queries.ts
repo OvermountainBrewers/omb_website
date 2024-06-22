@@ -1,3 +1,4 @@
+import { SanityAsset } from "@sanity/image-url/lib/types/types";
 import { groq } from "next-sanity";
 
 // Fields
@@ -22,34 +23,28 @@ export const membersQuery = groq`
   picture,
 }
 `;
-export const settingsQuery = groq`*[_type == "settings"][0]`;
 
 export const postsQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
   ${_postFields}
 }`;
 
-export const postAndMoreStoriesQuery = groq`
-{
-  "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
-    ${_postFields}
-  },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    content,
-    ${_postFields}
-  }
+// create queries for events, and resources
+
+export const eventsQuery = groq`
+*[_type == "event"] | order(date desc, _updatedAt desc) {
+  name,
+  date,
+  location,
+  description,
 }`;
 
-export const postSlugsQuery = groq`
-*[_type == "post" && defined(slug.current)][].slug.current
-`;
-
-export const postBySlugQuery = groq`
-*[_type == "post" && slug.current == $slug][0] {
-  ${_postFields}
-}
-`;
+export const resourcesQuery = groq`
+*[_type == "resource"] {
+  name,
+  description,
+  "fileUrl": file.asset->url,
+}`;
 
 // End Queries
 
@@ -97,11 +92,18 @@ export interface Post {
   content?: any;
 }
 
-export interface Settings {
-  title?: string;
-  description?: any[];
-  ogImage?: {
-    title?: string;
-  };
+export interface Event {
+  _id: string;
+  name?: string;
+  date?: string;
+  location?: string;
+  description?: string;
+}
+
+export interface Resource {
+  _id: string;
+  name?: string;
+  description?: string;
+  fileUrl?: string;
 }
 // End Types

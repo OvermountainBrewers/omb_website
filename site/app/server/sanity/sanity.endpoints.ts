@@ -9,7 +9,16 @@ import {
   studioUrl,
   useCdn,
 } from "./sanity.api";
-import { Member, Post, membersQuery, postsQuery } from "./sanity.queries";
+import {
+  Event,
+  Member,
+  Post,
+  Resource,
+  eventsQuery,
+  membersQuery,
+  postsQuery,
+  resourcesQuery,
+} from "./sanity.queries";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
 
@@ -87,4 +96,22 @@ export async function getPosts(): Promise<Post[]> {
   }).catch((err) => console.error(err));
 
   return posts || [];
+}
+
+export async function getEvents(): Promise<Event[]> {
+  const events = await clientFetch<Event[]>({
+    query: eventsQuery,
+    tags: ["event"],
+  }).catch((err) => console.error(err));
+
+  return events || [];
+}
+
+export async function getResources(): Promise<Resource[]> {
+  const resources = await clientFetch<Resource[]>({
+    query: resourcesQuery,
+    tags: ["resource"],
+  }).catch((err) => console.error(err));
+
+  return resources || [];
 }

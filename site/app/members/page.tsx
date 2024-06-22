@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { getMemberData } from "./server/get_member_data";
 import { SanityImage } from "../components/sanity_image";
+import { getAllMembers } from "../server/sanity/sanity.endpoints";
 
 export const metadata: Metadata = {
   title: {
@@ -10,10 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { members } = await getMemberData();
+  const members = await getAllMembers();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1>Members</h1>
       {members.map((member) => (
         <div key={member.name} className="flex flex-col items-center">
           {member.picture &&
