@@ -1,4 +1,3 @@
-import "server-only";
 import type { QueryParams } from "next-sanity";
 import { draftMode } from "next/headers";
 import {
@@ -73,10 +72,10 @@ export async function clientFetch<QueryResponse>({
       perspective: "previewDrafts",
     }),
     next: {
-      ...(isDraftMode && { revalidate: 30 }),
+      // ...(isDraftMode && { revalidate: 30 }),
+      revalidate: 0, // no-cache but allows nextjs to build a static page
       tags, // for tag-based revalidation
     },
-    cache: "no-store",
   });
 }
 
