@@ -1,13 +1,7 @@
 import { groq } from "next-sanity";
 
-export const membersQuery = groq`
-*[_type == "member"] {
-  name,
-  picture,
-}
-`;
-
-const postFields = groq`
+// Fields
+const _postFields = groq`
   _id,
   title,
   date,
@@ -18,22 +12,32 @@ const postFields = groq`
   "author": author->{name, picture},
 `;
 
+// End Fields
+
+// Queries
+
+export const membersQuery = groq`
+*[_type == "member"] {
+  name,
+  picture,
+}
+`;
 export const settingsQuery = groq`*[_type == "settings"][0]`;
 
-export const indexQuery = groq`
+export const postsQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
-  ${postFields}
+  ${_postFields}
 }`;
 
 export const postAndMoreStoriesQuery = groq`
 {
   "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
     content,
-    ${postFields}
+    ${_postFields}
   },
   "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
     content,
-    ${postFields}
+    ${_postFields}
   }
 }`;
 
@@ -43,10 +47,13 @@ export const postSlugsQuery = groq`
 
 export const postBySlugQuery = groq`
 *[_type == "post" && slug.current == $slug][0] {
-  ${postFields}
+  ${_postFields}
 }
 `;
 
+// End Queries
+
+// Types
 export interface Author {
   name?: string;
   picture?: any;
@@ -97,3 +104,4 @@ export interface Settings {
     title?: string;
   };
 }
+// End Types
