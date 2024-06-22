@@ -1,6 +1,6 @@
 import { groq } from "next-sanity";
 
-const membersQuery = groq`
+export const membersQuery = groq`
 *[_type == "member"] {
   name,
   picture,
@@ -50,6 +50,32 @@ export const postBySlugQuery = groq`
 export interface Author {
   name?: string;
   picture?: any;
+}
+
+export interface Member {
+  name?: string;
+  picture?: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+    crop: {
+      right: number;
+      top: number;
+      left: number;
+      bottom: number;
+      _type: string;
+    };
+    hotspot: {
+      width: number;
+      x: number;
+      y: number;
+      height: number;
+      _type: string;
+    };
+    _type: string;
+    alt: string;
+  };
 }
 
 export interface Post {

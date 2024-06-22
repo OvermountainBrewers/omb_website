@@ -4,7 +4,8 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
-  name: 'default',
+  basePath: '/cms',
+  name: 'production',
   title: 'OvermountainBrewers',
 
   projectId: 'ilp5p0ny',
