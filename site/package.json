@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.1.0",
+  "version": "2",
   "private": true,
   "scripts": {
     "load-env": "env-cmd -f ../.env.local",
@@ -8,7 +8,8 @@
     "build": "yarn load-env next build",
     "build:ci": "next build",
     "start": "yarn load-env next start",
-    "lint": "yarn load-env next lint"
+    "lint": "yarn load-env next lint",
+    "now-build": "next build"
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",
@@ -20,8 +21,8 @@
     "@sanity/ui": "^2.0.11",
     "client-only": "^0.0.1",
     "env-cmd": "^10.1.0",
-    "next": "<14.3.0",
-    "next-sanity": "9.3.8",
+    "next": "^14.2.4",
+    "next-sanity": "^9.4.2",
     "next-sanity-image": "^6.1.1",
     "react": ">=18",
     "react-dom": "^18",
@@ -41,5 +42,11 @@
   },
   "engines": {
     "node": "20"
-  }
+  },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ]
 }
