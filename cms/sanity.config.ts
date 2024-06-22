@@ -7,13 +7,8 @@ export default defineConfig({
   basePath: '/cms',
   name: 'production',
   title: 'OvermountainBrewers',
-
   projectId: 'ilp5p0ny',
   dataset: 'production',
-
   plugins: [structureTool(), visionTool()],
-
-  schema: {
-    types: schemaTypes,
-  },
+  schema: {types: schemaTypes},
 })
