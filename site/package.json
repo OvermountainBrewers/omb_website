@@ -6,6 +6,7 @@
     "load-env": "env-cmd -f ../.env.local",
     "dev": "yarn load-env next dev",
     "build": "yarn load-env next build",
+    "build:ci": "next build",
     "start": "yarn load-env next start",
     "lint": "yarn load-env next lint"
   },
