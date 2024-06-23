@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getResources } from "../server/sanity/sanity.endpoints";
+import { getResources } from "@/lib/sanity/sanity.endpoints";
 
 export const metadata: Metadata = {
   title: {

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { SanityImage } from "../components/sanity_image";
-import { getAllMembers } from "../server/sanity/sanity.endpoints";
+import { SanityImage } from "../../components/ui/sanity-image";
+import { getAllMembers } from "@/lib/sanity/sanity.endpoints";
 
 export const metadata: Metadata = {
   title: {

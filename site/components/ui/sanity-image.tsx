@@ -2,7 +2,7 @@
 import Image, { ImageLoader } from "next/image";
 import { Suspense } from "react";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { sanityImageUrl } from "../server/get_sanity_image";
+import { sanityImageUrl } from "../../lib/get_sanity_image";
 
 interface SanityImageProps {
   sanityImageSource?: SanityImageSource;
