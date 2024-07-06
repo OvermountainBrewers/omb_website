@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { getPosts } from "@/lib/sanity/sanity.endpoints";
+import { H1, H2, P } from "@/components/typography";
+import { Card } from "@/components/card";
 
 export const metadata: Metadata = {
   title: {
@@ -11,16 +13,16 @@ export default async function Page() {
   const posts = await getPosts();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Posts</h1>
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <main className="flex flex-col p-24">
+      <H1>Learn</H1>
+      <section id="posts">
         {posts.map((post) => (
-          <div key={post.slug} className="flex flex-col items-center">
-            <h2 className="text-xl font-bold">{post.title}</h2>
-            <p>{post.excerpt}</p>
-          </div>
+          <Card key={post.slug}>
+            <H2>{post.title}</H2>
+            <P>{post.excerpt}</P>
+          </Card>
         ))}
-      </div>
+      </section>
     </main>
   );
 }
