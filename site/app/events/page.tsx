@@ -1,5 +1,11 @@
 import { Metadata } from "next";
 import { getEvents } from "@/lib/sanity/sanity.endpoints";
+import { H1, H2, P } from "@/components/typography";
+import { cardStyle } from "@/components/card";
+import { cn } from "@/lib/utils";
+import { Small } from "@/components/small";
+import { Lead } from "@/components/lead";
+import { Large } from "@/components/large";
 
 export const metadata: Metadata = {
   title: {
@@ -12,24 +18,28 @@ export default async function Page() {
   const events = await getEvents();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Events</h1>
-      <section>
+    <main className="flex flex-col p-24">
+      <H1>Events</H1>
+      <section className="grid grid-cols-3">
         <ul>
           {events.map((event) => (
-            <li key={event._id}>
-              <h2>{event.name}</h2>
-              <p>
-                {event.date
-                  ? new Intl.DateTimeFormat("en-US", {
-                      month: "2-digit",
-                      day: "2-digit",
-                      year: "numeric",
-                    }).format(new Date(event.date))
-                  : "TBD"}
-              </p>
-              <p>{event.location}</p>
-              <p>{event.description}</p>
+            <li key={event._id} className={cn(cardStyle, "items-start")}>
+              <H2>{event.name}</H2>
+              {event.location && <p> {event.location} </p>}
+              <Small
+                text={
+                  event.date
+                    ? new Intl.DateTimeFormat("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      }).format(new Date(event.date))
+                    : "TBD"
+                }
+              />
+              {event.description && (
+                <Large text={event.description} className="mt-9" />
+              )}
             </li>
           ))}
         </ul>

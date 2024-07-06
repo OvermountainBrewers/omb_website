@@ -8,13 +8,13 @@ export const H1 = ({ children }: PropsWithChildren): JSX.Element => (
 );
 
 export const H2 = ({ children }: PropsWithChildren): JSX.Element => (
-  <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-2">
+  <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
     {children}
   </h2>
 );
 
 export const H3 = ({ children }: PropsWithChildren): JSX.Element => (
-  <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-1">
+  <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
     {children}
   </h3>
 );
