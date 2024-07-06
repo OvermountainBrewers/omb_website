@@ -2,19 +2,19 @@ import { cn } from "@/lib/utils";
 import React, { PropsWithChildren, ReactNode } from "react";
 
 export const H1 = ({ children }: PropsWithChildren): JSX.Element => (
-  <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+  <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-3">
     {children}
   </h1>
 );
 
 export const H2 = ({ children }: PropsWithChildren): JSX.Element => (
-  <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+  <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-2">
     {children}
   </h2>
 );
 
 export const H3 = ({ children }: PropsWithChildren): JSX.Element => (
-  <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+  <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-1">
     {children}
   </h3>
 );
