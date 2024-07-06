@@ -1,3 +1,4 @@
+import { H1 } from "@/components/typography";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Meeting Minutes</h1>
+    <main className="flex flex-col p-24">
+      <H1>Meeting Minutes</H1>
     </main>
   );
 }
