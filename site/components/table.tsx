@@ -11,17 +11,26 @@ export const Table = ({ headers, rows }: TableProps): JSX.Element => (
       <thead>
         <tr className="m-0 border-t p-0 even:bg-muted">
           {headers.map((header) => (
-            <th className="border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right">
+            <th
+              key={`header-${header}`}
+              className="border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right"
+            >
               {header}
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => (
-          <tr className="m-0 border-t p-0 even:bg-muted">
-            {row.map((cell) => (
-              <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
+        {rows.map((row, rowIndex) => (
+          <tr
+            key={`row-${rowIndex}`}
+            className="m-0 border-t p-0 even:bg-muted"
+          >
+            {row.map((cell, cellIndex) => (
+              <td
+                key={`${headers[rowIndex]}-${cellIndex}`}
+                className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
+              >
                 {cell}
               </td>
             ))}
