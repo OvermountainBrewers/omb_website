@@ -2,8 +2,9 @@
 import Image from "next/image";
 import { useWindowSize } from "../lib/window_size";
 import Link from "next/link";
+import { H4, P } from "@/components/typography";
 
-function anchor({
+function Anchor({
   href,
   title,
   description,
@@ -12,13 +13,22 @@ function anchor({
   title: string;
   description: string;
 }): JSX.Element {
+  function GTSymbol(): JSX.Element {
+    return (
+      <span className="group-hover:ml-2 transition-all">&nbsp;&nbsp;-&gt;</span>
+    );
+  }
+
   return (
-    <Link href={href}>
-      <h2>
-        {title}&nbsp;
-        <span>-&gt;</span>
-      </h2>
-      <p>{description}</p>
+    <Link
+      href={href}
+      className="flex flex-col p-4 bg-slate-800 hover:bg-slate-700 m-2 rounded-xl group"
+    >
+      <H4>
+        {title}
+        <GTSymbol />
+      </H4>
+      <P>{description}</P>
     </Link>
   );
 }
@@ -27,48 +37,50 @@ export default function Page() {
   const size = useWindowSize();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
+    <main className="flex flex-col items-center justify-between p-24 space-y-24">
+      <div className="relative flex h-[200px]">
         <Image
           className="relative"
-          src="/omb_header.png"
+          src="/omb_header.svg"
           alt="Over Mountain Brewers logo"
           width={size.width ?? 2000}
-          height={size.height ? size.height / 4 : 200}
+          height={size.height ?? 200}
           priority
         />
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left">
-        {anchor({
+      <section
+        id="links"
+        className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left"
+      >
+        {Anchor({
           href: "/members",
           title: "Members",
           description: "See who's part of the club",
         })}
-        {anchor({
+        {Anchor({
           href: "/learn",
           title: "Learn",
           description:
             "Learn from members of the brew club and stay up to date on the latest news",
         })}
-        {anchor({
+        {Anchor({
           href: "/events",
           title: "Events",
           description:
             "Become active in the community and join us at our next event",
         })}
-        {anchor({
+        {Anchor({
           href: "/meeting-minutes",
           title: "Meeting Minutes",
           description: "Miss the last meeting? Review our latest set of notes",
         })}
-        {anchor({
+        {Anchor({
           href: "/resources",
           title: "Resources",
           description:
             "A list of all resources we have available to our members",
         })}
-      </div>
+      </section>
     </main>
   );
 }
