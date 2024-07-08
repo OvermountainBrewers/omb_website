@@ -15,7 +15,9 @@ function Anchor({
 }): JSX.Element {
   function GTSymbol(): JSX.Element {
     return (
-      <span className="group-hover:ml-2 transition-all">&nbsp;&nbsp;-&gt;</span>
+      <span className="group-hover:ml-2 transition-all whitespace-nowrap">
+        &nbsp;&nbsp;-&gt;
+      </span>
     );
   }
 
