@@ -26,7 +26,6 @@ export const memberType = defineType({
         },
       ],
       options: {hotspot: true},
-      validation: (rule) => rule.required(),
     }),
   ],
 })
