@@ -20,7 +20,7 @@ export default async function Page() {
   return (
     <main className="flex flex-col p-4 lg:p-24">
       <H1>Events</H1>
-      <section className="grid grid-cols-3">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <ul>
           {events.map((event) => (
             <li key={event._id} className={cn(cardStyle, "items-start")}>
