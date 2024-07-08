@@ -34,7 +34,7 @@ export default function RootLayout({
       <body
         className={cn(
           inter.className,
-          "min-h-screen bg-background font-sans antialiased",
+          "bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
