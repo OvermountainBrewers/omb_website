@@ -16,9 +16,12 @@ export default async function Page() {
   const members = await getAllMembers();
 
   return (
-    <main className="flex flex-col p-24">
+    <main className="flex flex-col p-4 lg:p-24">
       <H1>Members</H1>
-      <section id="members" className="flex flex-row">
+      <section
+        id="members"
+        className="flex flex-wrap justify-center md:justify-start"
+      >
         {members.map((member) => (
           <Card key={member.name}>
             {member.picture ? (
@@ -28,7 +31,7 @@ export default async function Page() {
                 imageProps: { className: "rounded-full" },
               })
             ) : (
-              <User height={200} width={200} />
+              <User className="w-[200px] h-[200px]" />
             )}
             <H2>{member.name}</H2>
           </Card>
