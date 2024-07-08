@@ -39,7 +39,7 @@ export default function Page() {
   const size = useWindowSize();
 
   return (
-    <main className="flex flex-col items-center justify-between p-24 space-y-24">
+    <main className="flex flex-col items-center justify-between p-4 lg:p-24 space-y-12 lg:space-y-24">
       <div className="relative flex h-[200px]">
         <Image
           className="relative"
