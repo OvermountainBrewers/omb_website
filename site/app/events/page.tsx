@@ -18,7 +18,7 @@ export default async function Page() {
   const events = await getEvents();
 
   return (
-    <main className="flex flex-col p-24">
+    <main className="flex flex-col p-4 lg:p-24">
       <H1>Events</H1>
       <section className="grid grid-cols-3">
         <ul>

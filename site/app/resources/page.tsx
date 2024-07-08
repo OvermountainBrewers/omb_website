@@ -16,7 +16,7 @@ export default async function Page() {
   const resources = await getResources();
 
   return (
-    <main className="flex flex-col p-24">
+    <main className="flex flex-col p-4 lg:p-24">
       <H1>Resources</H1>
       <section id="downloads">
         <ul>

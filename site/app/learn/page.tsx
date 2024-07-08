@@ -13,7 +13,7 @@ export default async function Page() {
   const posts = await getPosts();
 
   return (
-    <main className="flex flex-col p-24">
+    <main className="flex flex-col p-4 lg:p-24">
       <H1>Learn</H1>
       <section id="posts">
         {posts.map((post) => (
