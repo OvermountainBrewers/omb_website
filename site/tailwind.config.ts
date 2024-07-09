@@ -20,6 +20,9 @@ const config = {
     },
     extend: {
       colors: {
+        paleYellow: "hsl(50, 100%, 70%)",
+        paleGreen: "hsl(120, 100%, 70%)",
+        paleBlue: "hsl(200, 100%, 70%)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -21,6 +21,9 @@ export const membersQuery = groq`
 *[_type == "member"] {
   name,
   picture,
+  officerPosition,
+  favoriteBrew,
+  badges,
 }
 `;
 
@@ -55,7 +58,7 @@ export interface Author {
 }
 
 export interface Member {
-  name?: string;
+  name: string;
   picture?: {
     asset: {
       _ref: string;
@@ -78,6 +81,9 @@ export interface Member {
     _type: string;
     alt: string;
   };
+  officerPosition?: string;
+  favoriteBrew?: string;
+  badges?: ("bjcpCertified" | "homebrewer" | "brewEnthusiast")[];
 }
 
 export interface Post {

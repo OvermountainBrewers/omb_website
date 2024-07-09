@@ -14,6 +14,29 @@ export const memberType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'officerPosition',
+      title: 'Officer Position',
+      type: 'string',
+    }),
+    defineField({
+      name: 'favoriteBrew',
+      title: 'Favorite Brew',
+      type: 'string',
+    }),
+    defineField({
+      name: 'badges',
+      title: 'Badges',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        list: [
+          {title: 'BJCP Certified', value: 'bjcpCertified'},
+          {title: 'Homebrewer', value: 'homebrewer'},
+          {title: 'Brew Enthusiast', value: 'brewEnthusiast'},
+        ],
+      },
+    }),
+    defineField({
       name: 'picture',
       title: 'Picture',
       type: 'image',
