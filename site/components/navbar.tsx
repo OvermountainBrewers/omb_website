@@ -17,6 +17,10 @@ export default function Navbar() {
 
   if (pathname?.includes("/cms")) return <></>;
 
+  return <NavContent />;
+}
+
+function NavContent() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
