@@ -9,15 +9,14 @@ import {
   useCdn,
 } from "./sanity.api";
 import {
-  Event,
-  Member,
-  Post,
-  Resource,
+  activitiesQuery,
+  brewsQuery,
   eventsQuery,
   membersQuery,
   postsQuery,
   resourcesQuery,
 } from "./sanity.queries";
+import type { Brew, Event, Member, Post, Resource } from "./sanity.types";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
 
@@ -113,4 +112,27 @@ export async function getResources(): Promise<Resource[]> {
   }).catch((err) => console.error(err));
 
   return resources || [];
+}
+
+export async function getAllBrews(): Promise<Brew[]> {
+  const brews = await clientFetch<Brew[]>({
+    query: brewsQuery,
+    tags: ["brew"],
+  }).catch((err) => console.error(err));
+
+  return brews || [];
+}
+
+interface Activities {
+  brews: Brew[];
+  events: Event[];
+}
+
+export async function getActivities(): Promise<Activities | void> {
+  const activities = await clientFetch<Activities>({
+    query: activitiesQuery,
+    tags: ["brew", "event"],
+  }).catch((err) => console.error(err));
+
+  return activities;
 }

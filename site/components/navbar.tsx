@@ -69,9 +69,9 @@ function NavItems() {
         </Link>
       </NavigationMenuItem>
       <NavigationMenuItem>
-        <Link href="/events" legacyBehavior passHref>
+        <Link href="/activities" legacyBehavior passHref>
           <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-            Events
+            Activities
           </NavigationMenuLink>
         </Link>
       </NavigationMenuItem>

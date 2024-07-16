@@ -66,10 +66,10 @@ export default function Page() {
             "Learn from members of the brew club and stay up to date on the latest news",
         })}
         {Anchor({
-          href: "/events",
-          title: "Events",
+          href: "/activities",
+          title: "Activities",
           description:
-            "Become active in the community and join us at our next event",
+            "Become active in the community and join us at our next event or see we're up to",
         })}
         {Anchor({
           href: "/meeting-minutes",
