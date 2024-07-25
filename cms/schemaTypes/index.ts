@@ -1,6 +1,7 @@
 import {SchemaTypeDefinition} from 'sanity'
 import {brewType} from './brew'
 import {eventType} from './event'
+import {linkType} from './link'
 import {memberType} from './member'
 import {postType} from './post'
 import {resourceType} from './resource'
@@ -24,6 +25,7 @@ function groupInto<T>(current: T, groupName: string): GroupDefinition<T> {
 export const schemaTypes: GroupDefinition<SchemaTypeDefinition>[] = [
   groupInto(brewType, activityGroup),
   groupInto(eventType, activityGroup),
+  groupInto(linkType, resourceGroup),
   groupInto(resourceType, resourceGroup),
   memberType,
   postType,
