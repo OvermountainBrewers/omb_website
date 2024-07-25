@@ -108,11 +108,11 @@ export default async function Page() {
       >
         <H2>{brew.name}</H2>
         <p>
-          {brew.brewer.name}'s {brew.style}
+          {brew.brewer.name}&apos;s {brew.style}
         </p>
         <p className="mb-8">
           <span>
-            Brewing -{" "}
+            Brewing{" - "}
             <Small
               text={
                 brew.brewDates.brewDate
@@ -142,7 +142,9 @@ export default async function Page() {
         <ul className="list-disc list-inside lg:ml-4">
           {brew.ingredients.map((ingredient) => {
             return (
-              <li>
+              <li
+                key={`ingredient-${ingredient.amount}_${ingredient.unit}_${ingredient.name}`}
+              >
                 {ingredient.amount} {ingredient.unit}: {ingredient.name}
               </li>
             );
