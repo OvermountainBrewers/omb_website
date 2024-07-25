@@ -3,6 +3,7 @@ import {format, parseISO} from 'date-fns'
 import {defineField, defineType} from 'sanity'
 
 import {memberType} from './member'
+import {required} from '../validations'
 
 /**
  * This file is the schema definition for a post.
@@ -26,7 +27,7 @@ export const postType = defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (rule) => rule.required(),
+      validation: required,
     }),
     defineField({
       name: 'slug',
@@ -37,7 +38,7 @@ export const postType = defineType({
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
-      validation: (rule) => rule.required(),
+      validation: required,
     }),
     defineField({
       name: 'content',

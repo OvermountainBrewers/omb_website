@@ -1,5 +1,6 @@
 import {UserIcon as icon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
+import {required} from '../validations'
 
 export const memberType = defineType({
   name: 'member',
@@ -11,7 +12,7 @@ export const memberType = defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
-      validation: (rule) => rule.required(),
+      validation: required,
     }),
     defineField({
       name: 'officerPosition',

@@ -1,5 +1,6 @@
 import {DocumentsIcon as icon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
+import {required} from '../validations'
 
 export const resourceType = defineType({
   name: 'resource',
@@ -11,7 +12,7 @@ export const resourceType = defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
-      validation: (rule) => rule.required(),
+      validation: required,
     }),
     defineField({
       name: 'description',
@@ -22,7 +23,7 @@ export const resourceType = defineType({
       name: 'file',
       title: 'File',
       type: 'file',
-      validation: (rule) => rule.required(),
+      validation: required,
     }),
   ],
 })

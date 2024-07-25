@@ -1,6 +1,7 @@
 import {DropIcon as icon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import {memberType} from './member'
+import {required, requiredArray} from '../validations'
 
 const brewStyles = [
   {title: '1A. American Light Lager', value: 'American Light Lager'},
@@ -184,13 +185,13 @@ export const brewType = defineType({
         list: brewStyles,
         layout: 'dropdown',
       },
-      validation: (rule) => rule.required(),
+      validation: required,
     }),
     defineField({
       name: 'ingredients',
       title: 'Ingredients',
       type: 'array',
-      validation: (Rule) => Rule.required().min(1),
+      validation: requiredArray,
       of: [
         {
           type: 'object',
@@ -246,7 +247,7 @@ export const brewType = defineType({
         defineField({
           name: 'brewDate',
           type: 'datetime',
-          validation: (rule) => rule.required(),
+          validation: required,
         }),
         defineField({
           name: 'yeastPrepDate',
@@ -261,7 +262,7 @@ export const brewType = defineType({
         defineField({
           name: 'endDate',
           type: 'datetime',
-          validation: (rule) => rule.required(),
+          validation: required,
         }),
       ],
     }),
