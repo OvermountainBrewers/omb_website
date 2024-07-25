@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getActivities } from "@/lib/sanity/sanity.endpoints";
-import { H1, H2, P } from "@/components/typography";
+import { H1, H2, H3, P } from "@/components/typography";
 import { cardStyle } from "@/components/card";
 import { cn } from "@/lib/utils";
 import { Small } from "@/components/small";
@@ -107,23 +107,47 @@ export default async function Page() {
         )}
       >
         <H2>{brew.name}</H2>
-        <P>
-          {brew.brewer.name} brewed a {brew.style} with{" "}
+        <p>
+          {brew.brewer.name}'s {brew.style}
+        </p>
+        <p className="mb-8">
+          <span>
+            Brewing -{" "}
+            <Small
+              text={
+                brew.brewDates.brewDate
+                  ? new Intl.DateTimeFormat("en-US", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                    }).format(new Date(brew.brewDates.brewDate))
+                  : "TBD"
+              }
+            />
+            {" - "}
+            <Small
+              text={
+                brew.brewDates.endDate
+                  ? new Intl.DateTimeFormat("en-US", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                    }).format(new Date(brew.brewDates.endDate))
+                  : "TBD"
+              }
+            />
+          </span>
+        </p>
+        <H3>Ingredients</H3>
+        <ul className="list-disc list-inside lg:ml-4">
           {brew.ingredients.map((ingredient) => {
-            return `${ingredient.amount} ${ingredient.unit} of ${ingredient.name}`;
+            return (
+              <li>
+                {ingredient.amount} {ingredient.unit}: {ingredient.name}
+              </li>
+            );
           })}
-        </P>
-        <Small
-          text={
-            brew.brewDates.endDate
-              ? new Intl.DateTimeFormat("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                }).format(new Date(brew.brewDates.endDate))
-              : "TBD"
-          }
-        />
+        </ul>
         {brew.description && <Large text={brew.description} className="mt-9" />}
       </li>
     );
