@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { Small } from "@/components/small";
 import { Large } from "@/components/large";
 import { Brew, Event } from "@/lib/sanity/sanity.types";
-import { act, PropsWithChildren } from "react";
-import { Section } from "lucide-react";
+import { PropsWithChildren } from "react";
+import { Divider } from "@/components/divider";
 
 export const metadata: Metadata = {
   title: {
@@ -18,8 +18,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const maybeActivities = await getActivities();
-
-  console.log(maybeActivities);
 
   if (maybeActivities === undefined) {
     return <P>We don&apos;t have any upcoming events!</P>;
@@ -171,10 +169,10 @@ export default async function Page() {
       <SectionWrapper>
         {nextEvent ? buildEvent(nextEvent) : <P>No upcoming events</P>}
       </SectionWrapper>
-      <hr className="my-12" />
+      <Divider />
       <H1>Upcoming Activities</H1>
       {buildSection("upcoming-activities", upcomingActivities)}
-      <hr className="my-12" />
+      <Divider />
       <H1>Past Activities</H1>
       {buildSection("past-activities", pastActivities)}
     </main>

@@ -4,6 +4,7 @@ import { cardStyle } from "@/components/card";
 import { H1, H2, P } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Divider } from "@/components/divider";
 
 export const metadata: Metadata = {
   title: {
@@ -13,10 +14,35 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const resources = await getResources();
+  const maybeResources = await getResources();
+
+  if (maybeResources === undefined) {
+    return <P>We don&apos;t have any resources available!</P>;
+  }
+
+  const { links, resources } = maybeResources;
 
   return (
     <main className="flex flex-col p-4 lg:p-24">
+      <H1>Links</H1>
+      <section id="links">
+        <ul>
+          {links.map((link) => (
+            <li key={link._id} className={cardStyle}>
+              <H2>{link.name}</H2>
+              <Button asChild>
+                <Link
+                  href={link.url}
+                  className="whitespace-break-spaces break-all"
+                >
+                  {link.url}
+                </Link>
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <Divider />
       <H1>Resources</H1>
       <section id="downloads">
         <ul>

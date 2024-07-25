@@ -10,13 +10,13 @@ import {
 } from "./sanity.api";
 import {
   activitiesQuery,
+  allResourcesQuery,
   brewsQuery,
   eventsQuery,
   membersQuery,
   postsQuery,
-  resourcesQuery,
 } from "./sanity.queries";
-import type { Brew, Event, Member, Post, Resource } from "./sanity.types";
+import type { Brew, Event, Link, Member, Post, Resource } from "./sanity.types";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
 
@@ -105,15 +105,6 @@ export async function getEvents(): Promise<Event[]> {
   return events || [];
 }
 
-export async function getResources(): Promise<Resource[]> {
-  const resources = await clientFetch<Resource[]>({
-    query: resourcesQuery,
-    tags: ["resource"],
-  }).catch((err) => console.error(err));
-
-  return resources || [];
-}
-
 export async function getAllBrews(): Promise<Brew[]> {
   const brews = await clientFetch<Brew[]>({
     query: brewsQuery,
@@ -135,4 +126,18 @@ export async function getActivities(): Promise<Activities | void> {
   }).catch((err) => console.error(err));
 
   return activities;
+}
+
+interface Resources {
+  links: Link[];
+  resources: Resource[];
+}
+
+export async function getResources(): Promise<Resources | void> {
+  const resources = await clientFetch<Resources>({
+    query: allResourcesQuery,
+    tags: ["link", "resource"],
+  }).catch((err) => console.error(err));
+
+  return resources;
 }

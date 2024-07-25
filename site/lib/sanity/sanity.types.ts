@@ -53,6 +53,13 @@ export interface Event {
   description?: string;
 }
 
+export interface Link {
+  _id: string;
+  _type: string;
+  name: string;
+  url: string;
+}
+
 export interface Resource {
   _id: string;
   _type: string;

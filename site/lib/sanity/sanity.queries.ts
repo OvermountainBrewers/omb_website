@@ -36,12 +36,25 @@ export const postsQuery = groq`
 export const eventsQuery = groq`
 *[_type == "event"] | order(date desc, _updatedAt desc) {...}`;
 
-export const resourcesQuery = groq`
+const resourcesQuery = groq`
 *[_type == "resource"] {
   name,
   description,
   "fileUrl": file.asset->url,
 }`;
+
+const linksQuery = groq`
+*[_type == "link"] {
+  name,
+  url,
+}`;
+
+export const allResourcesQuery = `
+{
+  "links": ${linksQuery},
+  "resources": ${resourcesQuery},
+}
+`;
 
 export const brewsQuery = groq`
 *[_type == "brew"] | order(brewDates.endDate desc, _updatedAt desc) {
