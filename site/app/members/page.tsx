@@ -6,7 +6,7 @@ import { H2 } from "@/components/typography";
 import { Card } from "@/components/card";
 import { User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Member } from "@/lib/sanity/sanity.queries";
+import { Member } from "@/lib/sanity/sanity.types";
 import { Large } from "@/components/large";
 
 export const metadata: Metadata = {
