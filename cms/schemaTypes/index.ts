@@ -10,7 +10,7 @@ export const groupKey = '_groupName'
 export const activityGroup = 'activity'
 export const resourceGroup = 'resource'
 
-type GroupDefinition<T> = T & {
+export type GroupDefinition<T> = T & {
   [groupKey]?: string
 }
 
