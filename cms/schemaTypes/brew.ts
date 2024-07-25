@@ -212,6 +212,8 @@ export const brewType = defineType({
                   {title: 'liters', value: 'l'},
                   {title: 'ounces', value: 'oz'},
                   {title: 'pounds', value: 'lb'},
+                  {title: 'items', value: 'item'},
+                  {title: 'packages', value: 'pkg'},
                 ],
               },
             },
