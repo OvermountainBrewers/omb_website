@@ -150,7 +150,11 @@ export default async function Page() {
             );
           })}
         </ul>
-        {brew.description && <Large text={brew.description} className="mt-9" />}
+        {brew.description && (
+          <p className="mt-9 text-wrap-pretty break-all lg:break-normal">
+            {brew.description}
+          </p>
+        )}
       </li>
     );
   }
