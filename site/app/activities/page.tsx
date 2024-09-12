@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: {
     absolute: "Activities",
   },
-  description: "Over Mountain Brewers activities",
+  description: "Overmountain Brewers activities",
 };
 
 export default async function Page() {

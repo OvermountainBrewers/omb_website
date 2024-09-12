@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: {
     absolute: "Meeting Minutes",
   },
-  description: "Over Mountain Brewers meeting minutes",
+  description: "Overmountain Brewers meeting minutes",
 };
 
 export default async function Page() {
