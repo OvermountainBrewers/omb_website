@@ -16,6 +16,12 @@ const _postFields = groq`
 
 // Queries
 
+export const meetingMinutesQuery = groq`
+*[_type == "meetingMinutes"] | order(meetingDate desc, _updatedAt desc) {
+  ...,
+  attendees[]->
+}`;
+
 export const membersQuery = groq`
 *[_type == "member"] {
   name,

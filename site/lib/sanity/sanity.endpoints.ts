@@ -13,10 +13,19 @@ import {
   allResourcesQuery,
   brewsQuery,
   eventsQuery,
+  meetingMinutesQuery,
   membersQuery,
   postsQuery,
 } from "./sanity.queries";
-import type { Brew, Event, Link, Member, Post, Resource } from "./sanity.types";
+import type {
+  Brew,
+  Event,
+  Link,
+  MeetingMinutes,
+  Member,
+  Post,
+  Resource,
+} from "./sanity.types";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
 
@@ -76,6 +85,15 @@ export async function clientFetch<QueryResponse>({
       tags, // for tag-based revalidation
     },
   });
+}
+
+export async function getAllMeetingMinutes(): Promise<MeetingMinutes[]> {
+  const meetingMinutes = await clientFetch<MeetingMinutes[]>({
+    query: meetingMinutesQuery,
+    tags: ["meeting", "minutes"],
+  }).catch((err) => console.error(err));
+
+  return meetingMinutes || [];
 }
 
 export async function getAllMembers(): Promise<Member[]> {

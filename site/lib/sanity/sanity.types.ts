@@ -1,6 +1,23 @@
+import { PortableTextBlock } from "next-sanity";
+
 export interface Author {
   name?: string;
   picture?: any;
+}
+
+export interface MeetingMinutes {
+  _id: string;
+  _type: string;
+  meetingDate: string;
+  location: string;
+  agendaItems?: string[];
+  attendees?: Member[];
+  guests?: string[];
+  postMeetingSummary?: PortableTextBlock[];
+  actionItems?: {
+    responsible: Member[];
+    action: string;
+  }[];
 }
 
 export interface Member {
