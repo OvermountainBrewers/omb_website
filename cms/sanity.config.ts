@@ -2,7 +2,7 @@ import pluralize from 'pluralize'
 import {defineConfig} from 'sanity'
 import {ListItemBuilder, StructureBuilder, structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {groupKey, schemaTypes} from './schemaTypes'
+import {groupKey, singletonKey, schemaTypes} from './schemaTypes'
 
 function toSentenceCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -12,6 +12,7 @@ export function buildStructure(S: StructureBuilder) {
   const sortedItems = S.documentTypeListItems().sort()
 
   const groups = new Map<string, ListItemBuilder[]>()
+  const singletons = new Map<string, ListItemBuilder[]>()
   const nonGroupedItems: ListItemBuilder[] = []
 
   // Separate grouped from non-grouped items
@@ -25,11 +26,31 @@ export function buildStructure(S: StructureBuilder) {
 
     const groupType = item.serialize().schemaType[groupKey]
 
+    const sigletonType = item.serialize().schemaType[singletonKey]
+
     if (groupType) {
       if (!groups.has(groupType)) groups.set(groupType, [])
 
       groups.get(groupType).push(item)
+    } else if (sigletonType) {
+      if (!singletons.has(sigletonType)) singletons.set(sigletonType, [])
+
+      singletons.get(sigletonType).push(item)
     } else nonGroupedItems.push(item)
+  })
+
+  const singletonItems = Array.from(singletons.entries()).map(([singularSingletonName]) => {
+    const lowercaseSingletonName = singularSingletonName.toLowerCase()
+
+    return S.listItem()
+      .title(toSentenceCase(singularSingletonName))
+      .id(lowercaseSingletonName)
+      .child(
+        // Instead of rendering a list of documents, we render a single
+        // document, specifying the `documentId` manually to ensure
+        // that we're editing the single instance of the document
+        S.document().schemaType(lowercaseSingletonName).documentId(lowercaseSingletonName),
+      )
   })
 
   const groupItems = Array.from(groups.entries()).map(([singularGroupName, groupItems]) => {
@@ -42,7 +63,7 @@ export function buildStructure(S: StructureBuilder) {
   return S.list()
     .title('Schemas')
     .items(
-      [...nonGroupedItems, ...groupItems].sort((a, b) =>
+      [...singletonItems, ...nonGroupedItems, ...groupItems].sort((a, b) =>
         a.serialize().title > b.serialize().title ? 1 : -1,
       ),
     )

@@ -1,4 +1,5 @@
 import {SchemaTypeDefinition} from 'sanity'
+import {aboutType} from './about'
 import {brewType} from './brew'
 import {eventType} from './event'
 import {linkType} from './link'
@@ -7,6 +8,7 @@ import {postType} from './post'
 import {resourceType} from './resource'
 
 export const groupKey = '_groupName'
+export const singletonKey = '_singletonName'
 export const activityGroup = 'activity'
 export const resourceGroup = 'resource'
 
@@ -22,7 +24,15 @@ function groupInto<T>(current: T, groupName: string): GroupDefinition<T> {
   }
 }
 
+function singleton<T>(current: T, singletonName: string): GroupDefinition<T> {
+  return {
+    ...current,
+    [singletonKey]: singletonName,
+  }
+}
+
 export const schemaTypes: GroupDefinition<SchemaTypeDefinition>[] = [
+  singleton(aboutType, 'about'),
   groupInto(brewType, activityGroup),
   groupInto(eventType, activityGroup),
   groupInto(linkType, resourceGroup),
