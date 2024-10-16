@@ -9,6 +9,7 @@ import {
   useCdn,
 } from "./sanity.api";
 import {
+  aboutQuery,
   activitiesQuery,
   allResourcesQuery,
   brewsQuery,
@@ -16,7 +17,15 @@ import {
   membersQuery,
   postsQuery,
 } from "./sanity.queries";
-import type { Brew, Event, Link, Member, Post, Resource } from "./sanity.types";
+import type {
+  About,
+  Brew,
+  Event,
+  Link,
+  Member,
+  Post,
+  Resource,
+} from "./sanity.types";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
 
@@ -76,6 +85,15 @@ export async function clientFetch<QueryResponse>({
       tags, // for tag-based revalidation
     },
   });
+}
+
+export async function getAbout(): Promise<About> {
+  const abouts = await clientFetch<About[]>({
+    query: aboutQuery,
+    tags: ["about"],
+  }).catch((err) => console.error(err));
+
+  return abouts && abouts.length ? abouts[0] : { body: [] };
 }
 
 export async function getAllMembers(): Promise<Member[]> {

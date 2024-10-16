@@ -1,3 +1,9 @@
+import { PortableTextBlock } from "next-sanity";
+
+export interface About {
+  body: PortableTextBlock[];
+}
+
 export interface Author {
   name?: string;
   picture?: any;
