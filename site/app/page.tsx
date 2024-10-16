@@ -40,6 +40,7 @@ export default function Page() {
 
   return (
     <main className="flex flex-col items-center justify-between p-4 lg:p-24 space-y-12 lg:space-y-24">
+      {/* TODO: Add banner for next meeting info */}
       <div className="relative flex h-[200px]">
         <Image
           className="relative"
