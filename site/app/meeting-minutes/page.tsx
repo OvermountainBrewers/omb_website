@@ -1,3 +1,4 @@
+import Main from "@/components/main";
 import { H1 } from "@/components/typography";
 import { Metadata } from "next";
 
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <main className="flex flex-col p-4 lg:p-24">
+    <Main>
       <H1>Meeting Minutes</H1>
-    </main>
+    </Main>
   );
 }

@@ -5,6 +5,7 @@ import { H1, H2, P } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Divider } from "@/components/divider";
+import Main from "@/components/main";
 
 export const metadata: Metadata = {
   title: {
@@ -23,7 +24,7 @@ export default async function Page() {
   const { links, resources } = maybeResources;
 
   return (
-    <main className="flex flex-col p-4 lg:p-24">
+    <Main>
       <H1>Links</H1>
       <section id="links">
         <ul>
@@ -57,6 +58,6 @@ export default async function Page() {
           ))}
         </ul>
       </section>
-    </main>
+    </Main>
   );
 }

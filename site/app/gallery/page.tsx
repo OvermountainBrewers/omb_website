@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { H1, H2, P } from "@/components/typography";
 import { Card } from "@/components/card";
+import Main from "@/components/main";
 
 export const metadata: Metadata = {
   title: {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 };
 export default async function Page() {
   return (
-    <main className="flex flex-col p-4 lg:p-24">
+    <Main>
       <H1>Gallery</H1>
       <section id="gallery">
         {
@@ -20,6 +21,6 @@ export default async function Page() {
           </Card>
         }
       </section>
-    </main>
+    </Main>
   );
 }

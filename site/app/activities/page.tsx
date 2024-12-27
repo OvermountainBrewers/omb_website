@@ -8,6 +8,7 @@ import { Large } from "@/components/large";
 import { Brew, Event } from "@/lib/sanity/sanity.types";
 import { PropsWithChildren } from "react";
 import { Divider } from "@/components/divider";
+import Main from "@/components/main";
 
 export const metadata: Metadata = {
   title: {
@@ -83,10 +84,10 @@ export default async function Page() {
           text={
             event.date
               ? new Intl.DateTimeFormat("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                }).format(new Date(event.date))
+                month: "2-digit",
+                day: "2-digit",
+                year: "numeric",
+              }).format(new Date(event.date))
               : "TBD"
           }
         />
@@ -117,10 +118,10 @@ export default async function Page() {
               text={
                 brew.brewDates.brewDate
                   ? new Intl.DateTimeFormat("en-US", {
-                      month: "2-digit",
-                      day: "2-digit",
-                      year: "numeric",
-                    }).format(new Date(brew.brewDates.brewDate))
+                    month: "2-digit",
+                    day: "2-digit",
+                    year: "numeric",
+                  }).format(new Date(brew.brewDates.brewDate))
                   : "TBD"
               }
             />
@@ -129,10 +130,10 @@ export default async function Page() {
               text={
                 brew.brewDates.endDate
                   ? new Intl.DateTimeFormat("en-US", {
-                      month: "2-digit",
-                      day: "2-digit",
-                      year: "numeric",
-                    }).format(new Date(brew.brewDates.endDate))
+                    month: "2-digit",
+                    day: "2-digit",
+                    year: "numeric",
+                  }).format(new Date(brew.brewDates.endDate))
                   : "TBD"
               }
             />
@@ -194,7 +195,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="flex flex-col p-4 lg:p-24">
+    <Main>
       <H1>Next Event</H1>
       <SectionWrapper>
         {nextEvent ? buildEvent(nextEvent) : <P>No upcoming events</P>}
@@ -205,6 +206,6 @@ export default async function Page() {
       <Divider />
       <H1>Past Activities</H1>
       {buildSection("past-activities", pastActivities)}
-    </main>
+    </Main>
   );
 }

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getPosts } from "@/lib/sanity/sanity.endpoints";
 import { H1, H2, P } from "@/components/typography";
 import { Card } from "@/components/card";
+import Main from "@/components/main";
 
 export const metadata: Metadata = {
   title: {
@@ -13,7 +14,7 @@ export default async function Page() {
   const posts = await getPosts();
 
   return (
-    <main className="flex flex-col p-4 lg:p-24">
+    <Main>
       <H1>Learn</H1>
       <section id="posts">
         {posts.map((post) => (
@@ -23,6 +24,6 @@ export default async function Page() {
           </Card>
         ))}
       </section>
-    </main>
+    </Main>
   );
 }

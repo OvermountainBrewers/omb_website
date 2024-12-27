@@ -8,6 +8,7 @@ import { User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Member } from "@/lib/sanity/sanity.types";
 import { Large } from "@/components/large";
+import Main from "@/components/main";
 
 export const metadata: Metadata = {
   title: {
@@ -41,11 +42,11 @@ export default async function Page() {
   });
 
   return (
-    <main className="flex flex-col p-4 lg:p-24">
+    <Main>
       <H1>Members</H1>
       <section
         id="members"
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {sortedMembers
           .sort((a, b) => {
@@ -58,7 +59,7 @@ export default async function Page() {
             <MemberCard key={member.name} member={member} />
           ))}
       </section>
-    </main>
+    </Main>
   );
 }
 
