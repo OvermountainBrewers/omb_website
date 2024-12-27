@@ -66,7 +66,7 @@ export default async function Page() {
 function convertBadgeToTitle(badge: string) {
   switch (badge) {
     case "bjcpCertified":
-      return "Beer Judge";
+      return "BJCP Certified";
     case "homebrewer":
       return "Homebrewer";
     case "brewEnthusiast":
