@@ -5,7 +5,6 @@ import Main from "@/components/main";
 import { ActivityFilter } from "@/app/activities/ActivityFilter";
 import { ClientActivities } from "@/app/activities/ClientActivities";
 import { P } from "@/components/typography";
-import { Divider } from "@/components/divider";
 
 export const metadata: Metadata = {
   title: {

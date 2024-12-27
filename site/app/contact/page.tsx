@@ -114,7 +114,7 @@ export default function Page() {
           <Card>
             <div className="text-center py-8">
               <H2>Thank You!</H2>
-              <P>We'll get back to you as soon as possible.</P>
+              <P>We&apos;ll get back to you as soon as possible.</P>
             </div>
           </Card>
         ) : (
