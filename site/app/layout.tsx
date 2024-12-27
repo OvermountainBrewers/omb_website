@@ -40,6 +40,21 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <footer className="w-full py-6 border-t border-border/40 mt-auto">
+          <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} Overmountain Brewers. All rights reserved.
+            </p>
+            <nav>
+              <a
+                href="/contact"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Contact Us
+              </a>
+            </nav>
+          </div>
+        </footer>
       </body>
     </html>
   );
