@@ -21,10 +21,15 @@
       "request": "launch",
       "command": "npm run dev",
       "cwd": "${workspaceFolder}/site",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
       "serverReadyAction": {
+        "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
-        "action": "debugWithChrome"
+        "action": "debugWithChrome",
+        "webRoot": "${workspaceFolder}/site",
       }
     }
   ]
