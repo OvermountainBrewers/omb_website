@@ -1,9 +1,13 @@
 import { Metadata } from "next";
 import { getAbout as getContent } from "@/lib/sanity/sanity.endpoints";
 import { H1, H2, P } from "@/components/typography";
-import { PortableText } from "next-sanity";
+import { PortableText, PortableTextBlock, PortableTextComponentProps, PortableTextMarkComponentProps } from "next-sanity";
 import { SanityImage } from "@/components/ui/sanity-image";
-import style from "./about.module.css";
+
+interface LinkValue {
+  _type: 'link';
+  href: string;
+}
 
 export const metadata: Metadata = {
   title: {
@@ -62,15 +66,25 @@ export default async function Page() {
               },
               block: {
                 h1: H1,
-                h2: H2,
-                p: ({ children }) => <p className="my-12">{children}</p>,
+                h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+                  <H2 className="pt-8">{children}</H2>
+                ),
+                normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => {
+                  const isEmpty = Array.isArray(children)
+                    ? children.every(child => typeof child === 'string' && child.trim() === '')
+                    : false;
+
+                  return (
+                    isEmpty ? null : <p className="pt-6">{children}</p>
+                  );
+                },
               },
               list: {
                 bullet: ({ children }) => (
-                  <ul className="mt-xl list-inside list-disc">{children}</ul>
+                  <ul className="mt-8 list-inside list-disc space-y-1">{children}</ul>
                 ),
                 number: ({ children }) => (
-                  <ol className="mt-lg list-inside list-decimal">{children}</ol>
+                  <ol className="mt-4 list-inside list-decimal space-y-1">{children}</ol>
                 ),
                 checkmarks: ({ children }) => (
                   <input
@@ -83,18 +97,18 @@ export default async function Page() {
                 em: ({ children }) => (
                   <em className="text-gray-600 font-semibold">{children}</em>
                 ),
-                link: ({ value, children }) => {
-                  const target = (value?.href || "").startsWith("http")
-                    ? "_blank"
-                    : undefined;
+                strong: ({ children }) => (
+                  <strong className="font-bold">{children}</strong>
+                ),
+                code: ({ children }) => (
+                  <code className="px-1.5 py-0.5 rounded bg-gray-100 font-mono text-sm">{children}</code>
+                ),
+                strike: ({ children }) => (
+                  <del className="text-gray-500 line-through">{children}</del>
+                ),
+                link: ({ children, value, markType }: PortableTextMarkComponentProps<LinkValue>) => {
                   return (
-                    <a
-                      href={value?.href}
-                      target={target}
-                      rel={target === "_blank" ? "noindex nofollow" : ""}
-                    >
-                      {children}
-                    </a>
+                    <a className="underline" href={value?.href} target="_blank" rel="noopener noreferrer">{children}</a>
                   );
                 },
               },
