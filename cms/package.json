@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "@sanity/vision": "^3.43.0",
+    "@sanity/icons": "^3.0.0",
     "env-cmd": "^10.1.0",
     "pluralize": "^8.0.0",
     "react": "^18",
