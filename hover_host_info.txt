@@ -1,0 +1,88 @@
+Current Nameservers:
+ns4.zoneedit.com
+ns14.zoneedit.com
+ns19.zoneedit.com
+
+Hover.com DNS Info
+TYPE HOST VALUE TTL ADDED BY 
+A * 216.40.34.41 15 Minutes Hover  
+A @ 216.40.34.41 15 Minutes Hover  
+MX @ 10 mx.hover.com.cust.hostedemail.com 15 Minutes Hover  com 0 Minutes  
+CNAME mail mail.hover.com.cust.hostedemail.com 15 Minutes Hover  
+TXT overmountainbrewer.com google-site-verification=JaTF91kzt7VxDVS1Cq_WTBe2ysq-zuLUa3HsKU5IUac 5 Minutes  
+CNAME p7sfccnuiddk.www gv-oh3k3gvdv5nlp2.dv.googlehosted.com 5 Minutes  
+TXT resend._domainkey p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6lz8gSbuP8vyWqNFqPHOZCz9EmMZMFnNreCJ3RNn3I+y6itgbKWJ2D1NG5Yw2RspuDYBmzvjTHcuf1JvgmtPpTmuVbhTlEQVeWNeDJZoYjljAI4lSKr4MBd3NYT9hiim3B8zxUJ/VjwR8zKW09QSQWm+0MsSH7u/+iB1ne4isHwIDAQAB 15 Minutes  
+MX send 10 feedback-smtp.us-east-1.amazonses.com 15 Minutes  
+TXT send v=spf1 include:amazonses.com ~all 15 Minutes  www 0 Minutes 
+
+
+dig overmountainbrewers.com ANY
+
+; <<>> DiG 9.10.6 <<>> overmountainbrewers.com ANY
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 32747
+;; flags: qr rd ra; QUERY: 1, ANSWER: 7, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;overmountainbrewers.com.       IN      ANY
+
+;; ANSWER SECTION:
+overmountainbrewers.com. 7200   IN      A       192.250.231.34
+overmountainbrewers.com. 7200   IN      NS      ns2.mysecurecloudhost.com.
+overmountainbrewers.com. 7200   IN      NS      ns1.mysecurecloudhost.com.
+overmountainbrewers.com. 7200   IN      NS      ns3.mysecurecloudhost.com.
+overmountainbrewers.com. 7200   IN      NS      ns4.mysecurecloudhost.com.
+overmountainbrewers.com. 7200   IN      MX      0 mail.overmountainbrewers.com.
+overmountainbrewers.com. 7200   IN      SOA     dns0.zoneedit.com. zone.zoneedit.com. 1720626594 2400 360 1209600 300
+
+;; Query time: 51 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Sat Dec 28 13:40:50 EST 2024
+;; MSG SIZE  rcvd: 234
+
+
+dig mail.overmountainbrewers.com A
+
+; <<>> DiG 9.10.6 <<>> mail.overmountainbrewers.com A
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 53123
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;mail.overmountainbrewers.com.  IN      A
+
+;; ANSWER SECTION:
+mail.overmountainbrewers.com. 7200 IN   A       192.250.231.34
+
+;; Query time: 96 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Sat Dec 28 13:48:48 EST 2024
+;; MSG SIZE  rcvd: 73
+
+
+dig overmountainbrewers.com TXT
+
+; <<>> DiG 9.10.6 <<>> overmountainbrewers.com TXT
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 33038
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;overmountainbrewers.com.       IN      TXT
+
+;; AUTHORITY SECTION:
+overmountainbrewers.com. 300    IN      SOA     dns0.zoneedit.com. zone.zoneedit.com. 1720626594 2400 360 1209600 300
+
+;; Query time: 1325 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Sat Dec 28 13:49:00 EST 2024
+;; MSG SIZE  rcvd: 107
