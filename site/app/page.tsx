@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useWindowSize } from "../lib/window_size";
 import Link from "next/link";
 import { H4, P } from "@/components/typography";
+import Main from "@/components/main";
 
 function Anchor({
   href,
@@ -39,7 +40,7 @@ export default function Page() {
   const size = useWindowSize();
 
   return (
-    <main className="flex flex-col items-center justify-between p-4 lg:p-24 space-y-12 lg:space-y-24">
+    <Main className="items-center justify-between lg:p-24 space-y-12 lg:space-y-24">
       {/* TODO: Add banner for next meeting info */}
       <div className="relative flex h-[200px]">
         <Image
@@ -83,7 +84,12 @@ export default function Page() {
           description:
             "A list of all resources we have available to our members",
         })}
+        {Anchor({
+          href: "/about",
+          title: "About",
+          description: "Learn more about Over Mountain Brewers and our mission",
+        })}
       </section>
-    </main>
+    </Main>
   );
 }
