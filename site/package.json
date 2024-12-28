@@ -9,7 +9,8 @@
     "build:ci": "next build",
     "start": "yarn load-env next start",
     "lint": "yarn load-env next lint",
-    "now-build": "next build"
+    "now-build": "next build",
+    "prettify": "prettier --write \"**/*.{ts,tsx,json}\""
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",

@@ -67,10 +67,10 @@ export async function clientFetch<QueryResponse>({
   params?: QueryParams;
   tags: string[];
 }): Promise<QueryResponse> {
-  const isDraftMode = draftMode().isEnabled;
+  const { isEnabled: isDraftMode } = await draftMode();
   if (isDraftMode && !readToken) {
     throw new Error(
-      "The `SANITY_API_READ_TOKEN` environment variable is required."
+      "The `SANITY_API_READ_TOKEN` environment variable is required.",
     );
   }
 

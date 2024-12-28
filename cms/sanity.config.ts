@@ -1,8 +1,8 @@
 import pluralize from 'pluralize'
-import { defineConfig } from 'sanity'
-import { ListItemBuilder, StructureBuilder, structureTool } from 'sanity/structure'
-import { visionTool } from '@sanity/vision'
-import { groupKey, singletonKey, schemaTypes } from './schemaTypes'
+import {defineConfig} from 'sanity'
+import {ListItemBuilder, StructureBuilder, structureTool} from 'sanity/structure'
+import {visionTool} from '@sanity/vision'
+import {groupKey, singletonKey, schemaTypes} from './schemaTypes'
 
 function toSentenceCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -81,5 +81,5 @@ export default defineConfig({
     }),
     visionTool(),
   ],
-  schema: { types: schemaTypes },
+  schema: {types: schemaTypes},
 })

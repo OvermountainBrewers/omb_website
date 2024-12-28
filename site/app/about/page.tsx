@@ -4,8 +4,6 @@ import { H1 } from "@/components/typography";
 import StyledText from "@/components/ui/styledText";
 import Main from "@/components/main";
 
-
-
 export const metadata: Metadata = {
   title: {
     absolute: "About",
@@ -19,11 +17,7 @@ export default async function Page() {
   return (
     <Main>
       <H1>About</H1>
-      <section id="about">
-        {
-          StyledText({ value: content.body })
-        }
-      </section>
+      <section id="about">{StyledText({ value: content.body })}</section>
     </Main>
   );
 }

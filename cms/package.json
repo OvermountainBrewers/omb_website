@@ -10,7 +10,8 @@
     "start": "yarn load-env sanity start",
     "build": "yarn load-env sanity build",
     "deploy": "yarn load-env sanity deploy",
-    "deploy-graphql": "yarn load-env sanity graphql deploy"
+    "deploy-graphql": "yarn load-env sanity graphql deploy",
+    "prettify": "prettier --write \"**/*.{ts,tsx,json}\""
   },
   "keywords": [
     "sanity"

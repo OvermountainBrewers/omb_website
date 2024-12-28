@@ -14,7 +14,7 @@ export const H2 = ({
   <h2
     className={cn(
       "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
-      className
+      className,
     )}
   >
     {children}
@@ -34,7 +34,7 @@ export const H4 = ({
   <h4
     className={cn(
       "scroll-m-20 text-xl font-semibold tracking-tight",
-      className
+      className,
     )}
   >
     {children}

@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   description: "Over Mountain Brewers activities",
 };
 
-
 export default async function Page() {
   const maybeActivities = await getActivities();
 
@@ -37,7 +36,7 @@ export default async function Page() {
 
   // then sort the map by the key
   const sortedDateToActivity = new Map(
-    Array.from(dateToActivity).sort(([a], [b]) => a.localeCompare(b))
+    Array.from(dateToActivity).sort(([a], [b]) => a.localeCompare(b)),
   );
 
   // then flatten the map into an array
@@ -69,7 +68,7 @@ export default async function Page() {
 
   // filter the sorted activities for events and get the first one
   const nextEvent = upcomingActivities.find(
-    (activity) => activity._type == "event"
+    (activity) => activity._type == "event",
   ) as Event;
 
   return (

@@ -35,7 +35,7 @@ export default function RootLayout({
         className={cn(
           inter.className,
           "bg-background font-sans antialiased",
-          fontSans.variable
+          fontSans.variable,
         )}
       >
         <Navbar />
@@ -43,7 +43,8 @@ export default function RootLayout({
         <footer className="w-full py-6 border-t border-border/40 mt-auto">
           <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Overmountain Brewers. All rights reserved.
+              © {new Date().getFullYear()} Overmountain Brewers. All rights
+              reserved.
             </p>
             <nav>
               <a

@@ -9,5 +9,5 @@ import { client } from "./sanity/sanity_client";
 const builder = imageUrlBuilder(client);
 
 export const sanityImageUrl = async (
-  source: SanityImageSource
+  source: SanityImageSource,
 ): Promise<ImageUrlBuilder> => builder.image(source);

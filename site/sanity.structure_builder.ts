@@ -41,7 +41,7 @@ export function buildStructure(S: StructureBuilder) {
       const pluralizedGroupName = toSentenceCase(pluralize(singularGroupName));
 
       return S.listItem().title(pluralizedGroupName).child(groupList);
-    }
+    },
   );
 
   return S.list()
@@ -56,6 +56,6 @@ export function buildStructure(S: StructureBuilder) {
         }
 
         return 0;
-      })
+      }),
     );
 }

@@ -1,7 +1,7 @@
 "use client";
 /**
  * Contact Form Page
- * 
+ *
  * A responsive contact form that sends messages to ombrewers@gmail.com.
  * Features:
  * - Form validation for name, email, and message
@@ -10,7 +10,7 @@
  * - Loading states during submission
  * - Success message after sending
  * - Error handling for failed submissions
- * 
+ *
  * Uses Resend API for email delivery (configured in /api/contact/route.ts)
  */
 import { Metadata } from "next";
@@ -40,7 +40,7 @@ const FormField = ({
   type = "text",
   required = true,
   rows,
-  className
+  className,
 }: FormFieldProps) => (
   <div className="grid w-full gap-1.5">
     <Label.Root
@@ -57,7 +57,7 @@ const FormField = ({
         rows={rows}
         className={cn(
           "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className
+          className,
         )}
       />
     ) : (
@@ -68,7 +68,7 @@ const FormField = ({
         required={required}
         className={cn(
           "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className
+          className,
         )}
       />
     )}
@@ -131,7 +131,12 @@ export default function Page() {
 
               {/* Honeypot field */}
               <div className="hidden">
-                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
               </div>
 
               <Button
