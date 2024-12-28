@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "scripts": {
+    "prettify": "(yarn --cwd site prettify & yarn --cwd cms prettify & wait)"
+  }
+}

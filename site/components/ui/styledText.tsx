@@ -26,24 +26,16 @@ export default async function StyledText({
       }}
       components={{
         unknownType: (value) => (
-          <p>
-            {`A component for the type "${value.value._type}" has not been created.`}
-          </p>
+          <p>{`A component for the type "${value.value._type}" has not been created.`}</p>
         ),
         unknownBlockStyle: (value) => (
-          <p>
-            {`A block style for the style "${value.value.style}" has not been created.`}
-          </p>
+          <p>{`A block style for the style "${value.value.style}" has not been created.`}</p>
         ),
         unknownMark: (value) => (
-          <p>
-            {`A mark for the mark type "${value.value._type}" has not been created.`}
-          </p>
+          <p>{`A mark for the mark type "${value.value._type}" has not been created.`}</p>
         ),
         unknownList: (value) => (
-          <p>
-            {`A list for the list style "${value.value.mode}" has not been created.`}
-          </p>
+          <p>{`A list for the list style "${value.value.mode}" has not been created.`}</p>
         ),
         unknownListItem: (value) => (
           <p>
