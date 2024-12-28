@@ -1,5 +1,5 @@
-import { InfoOutlineIcon as icon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import {InfoOutlineIcon as icon} from '@sanity/icons'
+import {defineField, defineType} from 'sanity'
 
 export const aboutType = defineType({
   name: 'about',
@@ -9,12 +9,12 @@ export const aboutType = defineType({
     defineField({
       name: 'body',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [{type: 'block'}],
     }),
   ],
   preview: {
     prepare() {
-      return { title: 'About' }
+      return {title: 'About'}
     },
   },
 })
