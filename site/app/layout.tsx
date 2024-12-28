@@ -29,6 +29,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerHeight = 72;
+  const footerHeight = 72;
   return (
     <html lang="en" className="dark">
       <body
