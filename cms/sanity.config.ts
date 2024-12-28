@@ -1,8 +1,8 @@
 import pluralize from 'pluralize'
-import {defineConfig} from 'sanity'
-import {ListItemBuilder, StructureBuilder, structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
-import {groupKey, singletonKey, schemaTypes} from './schemaTypes'
+import { defineConfig } from 'sanity'
+import { ListItemBuilder, StructureBuilder, structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { groupKey, singletonKey, schemaTypes } from './schemaTypes'
 
 function toSentenceCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -70,7 +70,6 @@ export function buildStructure(S: StructureBuilder) {
 }
 
 export default defineConfig({
-  basePath: '/cms',
   name: 'production',
   title: 'OvermountainBrewers',
   projectId: 'ilp5p0ny',
@@ -78,8 +77,9 @@ export default defineConfig({
   plugins: [
     structureTool({
       structure: buildStructure,
+      defaultDocumentNode: (S) => S.document(),
     }),
     visionTool(),
   ],
-  schema: {types: schemaTypes},
+  schema: { types: schemaTypes },
 })
