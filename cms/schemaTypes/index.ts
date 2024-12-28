@@ -1,11 +1,12 @@
-import {SchemaTypeDefinition} from 'sanity'
-import {aboutType} from './about'
-import {brewType} from './brew'
-import {eventType} from './event'
-import {linkType} from './link'
-import {memberType} from './member'
-import {postType} from './post'
-import {resourceType} from './resource'
+import { SchemaTypeDefinition } from 'sanity'
+import { aboutType } from './about'
+import { brewType } from './brew'
+import { eventType } from './event'
+import { galleryImage as galleryImageType } from './galleryImage'
+import { linkType } from './link'
+import { memberType } from './member'
+import { postType } from './post'
+import { resourceType } from './resource'
 
 export const groupKey = '_groupName'
 export const singletonKey = '_singletonName'
@@ -37,6 +38,7 @@ export const schemaTypes: GroupDefinition<SchemaTypeDefinition>[] = [
   groupInto(eventType, activityGroup),
   groupInto(linkType, resourceGroup),
   groupInto(resourceType, resourceGroup),
+  galleryImageType,
   memberType,
   postType,
 ]
