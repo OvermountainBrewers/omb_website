@@ -36,7 +36,7 @@ export default async function Page() {
 
   // then sort the map by the key
   const sortedDateToActivity = new Map(
-    Array.from(dateToActivity).sort(([a], [b]) => a.localeCompare(b)),
+    Array.from(dateToActivity).sort(([a], [b]) => b.localeCompare(a)),
   );
 
   // then flatten the map into an array
