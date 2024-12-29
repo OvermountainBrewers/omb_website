@@ -47,6 +47,12 @@ export const galleryImageType = defineType({
       type: 'string',
       hidden: true, // This will help us track which Drive folder the image came from
     }),
+    defineField({
+      name: 'sourceFileId',
+      title: 'Source File ID',
+      type: 'string',
+      hidden: true, // This will help us track which Drive file the image came from
+    }),
   ],
   preview: {
     select: {
