@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "en-US": "/en-US",
     },
   },
-  title: "Over Mountain Brewers",
+  title: "Overmountain Brewers",
   description: "Abingdon Virginia's brew club",
 };
 

@@ -5,7 +5,7 @@ import { NextEventBanner } from "@/components/next_event_banner";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Over Mountain Brew Club",
+    absolute: "Overmountain Brew Club",
   },
   description:
     "A community of passionate home brewers based in Abingdon, VA serving the Tri-Cities area. We meet monthly to share brews, knowledge, and participate in local events throughout Southwest Virginia.",

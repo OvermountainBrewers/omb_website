@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: {
     absolute: "Members",
   },
-  description: "Over Mountain Brewers members",
+  description: "Overmountain Brewers members",
 };
 
 export default async function Page() {

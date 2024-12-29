@@ -44,7 +44,7 @@ export default function Home() {
         <Image
           className="relative"
           src="/omb_header.svg"
-          alt="Over Mountain Brewers logo"
+          alt="Overmountain Brewers logo"
           width={size.width ?? 2000}
           height={size.height ?? 200}
           priority
@@ -85,7 +85,7 @@ export default function Home() {
         {Anchor({
           href: "/about",
           title: "About",
-          description: "Learn more about Over Mountain Brewers and our mission",
+          description: "Learn more about Overmountain Brewers and our mission",
         })}
       </section>
     </>
