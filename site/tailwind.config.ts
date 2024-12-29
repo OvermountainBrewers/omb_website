@@ -1,5 +1,6 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
+const black = "20 14.3% 4.1%";
 
 const config = {
   darkMode: ["class"],
@@ -20,9 +21,21 @@ const config = {
     },
     extend: {
       colors: {
-        paleYellow: "hsl(50, 100%, 70%)",
-        paleGreen: "hsl(120, 100%, 70%)",
-        paleBlue: "hsl(200, 100%, 70%)",
+        paleYellow: {
+          DEFAULT: "hsl(50, 100%, 70%)",
+          foreground: `hsl(${black})`,
+          background: `hsl(${black})`,
+        },
+        paleGreen: {
+          DEFAULT: "hsl(120, 100%, 70%)",
+          foreground: `hsl(${black})`,
+          background: `hsl(${black})`,
+        },
+        paleBlue: {
+          DEFAULT: "hsl(200, 100%, 70%)",
+          foreground: `hsl(${black})`,
+          background: `hsl(${black})`,
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

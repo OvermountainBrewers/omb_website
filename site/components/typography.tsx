@@ -21,8 +21,16 @@ export const H2 = ({
   </h2>
 );
 
-export const H3 = ({ children }: PropsWithChildren): JSX.Element => (
-  <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+export const H3 = ({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>): JSX.Element => (
+  <h3
+    className={cn(
+      "scroll-m-20 text-2xl font-semibold tracking-tight",
+      className,
+    )}
+  >
     {children}
   </h3>
 );

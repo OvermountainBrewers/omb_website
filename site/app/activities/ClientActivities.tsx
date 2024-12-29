@@ -9,7 +9,6 @@ import { P } from "@/components/typography";
 import Link from "next/link";
 import { Small } from "@/components/small";
 import { cn } from "@/lib/utils";
-import { Large } from "@/components/large";
 import { cardStyle } from "@/components/card";
 
 interface ClientActivitiesProps {
@@ -17,6 +16,31 @@ interface ClientActivitiesProps {
   upcomingActivities: (Event | Brew)[];
   pastActivities: (Event | Brew)[];
 }
+
+// Helper function to convert URLs to links
+const convertUrlsToLinks = (text: string | undefined) => {
+  if (!text) return null;
+
+  // Regex to match URLs
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+  return text.split(urlRegex).map((part, i) => {
+    if (part.match(urlRegex)) {
+      return (
+        <Link
+          key={i}
+          href={part}
+          className="text-paleGreen underline hover:text-paleGreen/80"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {part}
+        </Link>
+      );
+    }
+    return part;
+  });
+};
 
 function buildSection(id: string, activities: any[]): JSX.Element {
   return (
@@ -45,21 +69,31 @@ function buildSection(id: string, activities: any[]): JSX.Element {
 
 function buildEvent(event: Event): JSX.Element {
   return (
-    <li key={event._id} className={cn(cardStyle, "items-start")}>
-      <H2>{event.name}</H2>
-      {event.location && <p> {event.location} </p>}
-      <Small
-        text={
-          event.date
-            ? new Intl.DateTimeFormat("en-US", {
-                month: "2-digit",
-                day: "2-digit",
-                year: "numeric",
-              }).format(new Date(event.date))
-            : "TBD"
-        }
-      />
-      {event.description && <Large text={event.description} className="mt-9" />}
+    <li
+      key={event._id}
+      className={cn(cardStyle, "items-start", "border-l-4 border-paleBlue")}
+    >
+      <H2 className="tracking-tight leading-7 text-paleBlue">{event.name}</H2>
+      {event.location && (
+        <p className="tracking-wide leading-6 text-foreground/80">
+          {" "}
+          {event.location}{" "}
+        </p>
+      )}
+      <Small className="tracking-wider leading-6 text-paleBlue/80">
+        {event.date
+          ? new Intl.DateTimeFormat("en-US", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            }).format(new Date(event.date))
+          : "TBD"}
+      </Small>
+      {event.description && (
+        <Small className="mt-6 tracking-wide leading-4 text-foreground/70">
+          {convertUrlsToLinks(event.description)}
+        </Small>
+      )}
     </li>
   );
 }
@@ -71,42 +105,40 @@ function buildBrew(brew: Brew): JSX.Element {
       className={cn(
         cardStyle,
         "items-start col-span1 md:col-span-2 lg:col-span-3 my-12",
+        "border-l-4 border-paleGreen",
+        "bg-paleGreen/5",
       )}
     >
-      <H2>{brew.name}</H2>
-      <p>
+      <H2 className="text-paleGreen">{brew.name}</H2>
+      <p className="text-foreground/80">
         {brew.brewer.name}&apos;s {brew.style}
       </p>
-      <p className="mb-8">
+      <p className="mb-8 text-paleGreen/80">
         <span>
           Brewing{" - "}
-          <Small
-            text={
-              brew.brewDates.brewDate
-                ? new Intl.DateTimeFormat("en-US", {
-                    month: "2-digit",
-                    day: "2-digit",
-                    year: "numeric",
-                  }).format(new Date(brew.brewDates.brewDate))
-                : "TBD"
-            }
-          />
+          <Small>
+            {brew.brewDates.brewDate
+              ? new Intl.DateTimeFormat("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                }).format(new Date(brew.brewDates.brewDate))
+              : "TBD"}
+          </Small>
           {" - "}
-          <Small
-            text={
-              brew.brewDates.endDate
-                ? new Intl.DateTimeFormat("en-US", {
-                    month: "2-digit",
-                    day: "2-digit",
-                    year: "numeric",
-                  }).format(new Date(brew.brewDates.endDate))
-                : "TBD"
-            }
-          />
+          <Small>
+            {brew.brewDates.endDate
+              ? new Intl.DateTimeFormat("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                }).format(new Date(brew.brewDates.endDate))
+              : "TBD"}
+          </Small>
         </span>
       </p>
-      <H3>Ingredients</H3>
-      <ul className="list-disc list-inside lg:ml-4">
+      <H3 className="text-paleGreen/90">Ingredients</H3>
+      <ul className="list-disc list-inside lg:ml-4 text-foreground/80">
         {brew.ingredients.map((ingredient) => {
           return (
             <li
@@ -118,8 +150,8 @@ function buildBrew(brew: Brew): JSX.Element {
         })}
       </ul>
       {brew.description && (
-        <p className="mt-9 text-wrap-pretty break-all lg:break-normal">
-          {brew.description}
+        <p className="mt-9 text-wrap-pretty break-all lg:break-normal text-foreground/70">
+          {convertUrlsToLinks(brew.description)}
         </p>
       )}
     </li>
@@ -142,26 +174,30 @@ export function ClientActivities({
     });
   };
 
+  const filteredNextEvent = nextEvent ? filterActivities([nextEvent])[0] : null;
+
   return (
     <>
       <H1>Next Event</H1>
-      <SectionWrapper>
-        {nextEvent ? (
-          buildEvent(nextEvent)
-        ) : (
-          <P>
-            No upcoming events. Chat with us on{" "}
-            <Link className="underline" href="https://discord.gg/pvz3PW69yw">
-              Discord
-            </Link>{" "}
-            or{" "}
-            <Link className="underline" href="/contact">
-              contact us
-            </Link>{" "}
-            through our website!
-          </P>
-        )}
-      </SectionWrapper>
+      <section id="next-event">
+        <SectionWrapper>
+          {filteredNextEvent ? (
+            buildEvent(filteredNextEvent)
+          ) : (
+            <P>
+              No upcoming events. Chat with us on{" "}
+              <Link className="underline" href="https://discord.gg/pvz3PW69yw">
+                Discord
+              </Link>{" "}
+              or{" "}
+              <Link className="underline" href="/contact">
+                contact us
+              </Link>{" "}
+              through our website!
+            </P>
+          )}
+        </SectionWrapper>
+      </section>
       <Divider />
       <H1>Upcoming Activities</H1>
       {buildSection(
