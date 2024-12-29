@@ -25,7 +25,9 @@ const breakMessages = [
 ];
 
 export function SectionWrapper({ children }: PropsWithChildren): JSX.Element {
-  const hasActivities = Array.isArray(children) && children.length > 0;
+  const hasActivities =
+    (Array.isArray(children) && children.length > 0) ||
+    (typeof children === "object" && children !== null);
 
   return (
     <ul
