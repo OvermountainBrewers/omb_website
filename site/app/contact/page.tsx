@@ -13,7 +13,6 @@
  *
  * Uses Resend API for email delivery (configured in /api/contact/route.ts)
  */
-import { Metadata } from "next";
 import { H1, H2, P } from "@/components/typography";
 import { Card } from "@/components/card";
 import Main from "@/components/main";
