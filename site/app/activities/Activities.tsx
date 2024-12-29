@@ -1,6 +1,6 @@
 "use client";
 
-import { H1, H2, H3 } from "@/components/typography";
+import { H1, H2, h2Style, H3, h3Style, H4 } from "@/components/typography";
 import { useFilterStore } from "./store";
 import { Event, Brew } from "@/lib/sanity/sanity.types";
 import { SectionWrapper, SectionWrapperProps } from "./SectionWrapper";
@@ -78,7 +78,9 @@ function buildEvent(event: Event): JSX.Element {
       key={event._id}
       className={cn(cardStyle, "items-start", "border-l-4 border-paleBlue")}
     >
-      <H2 className="tracking-tight leading-7 text-paleBlue">{event.name}</H2>
+      <H3 className={cn(h2Style, "tracking-tight leading-7 text-paleBlue")}>
+        {event.name}
+      </H3>
       {event.location && (
         <p className="tracking-wide leading-6 text-foreground/80">
           {" "}
@@ -114,7 +116,7 @@ function buildBrew(brew: Brew): JSX.Element {
         "bg-paleGreen/5",
       )}
     >
-      <H2 className="text-paleGreen">{brew.name}</H2>
+      <H3 className={cn(h2Style, "text-paleGreen")}>{brew.name}</H3>
       <p className="text-foreground/80">
         {brew.brewer.name}&apos;s {brew.style}
       </p>
@@ -142,7 +144,7 @@ function buildBrew(brew: Brew): JSX.Element {
           </Small>
         </span>
       </p>
-      <H3 className="text-paleGreen/90">Ingredients</H3>
+      <H4 className={cn(h3Style, "text-paleGreen/90")}>Ingredients</H4>
       <ul className="list-disc list-inside lg:ml-4 text-foreground/80">
         {brew.ingredients.map((ingredient) => {
           return (
