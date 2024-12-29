@@ -74,10 +74,7 @@ function buildSection({
 
 function buildEvent(event: Event): JSX.Element {
   return (
-    <div
-      key={event._id}
-      className={cn(cardStyle, "items-start", "border-l-4 border-paleBlue")}
-    >
+    <div key={event._id} className={cn(cardStyle, "items-start")}>
       <H3 className={cn(h2Style, "tracking-tight leading-7 text-paleBlue")}>
         {event.name}
       </H3>
