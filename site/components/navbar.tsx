@@ -57,8 +57,8 @@ function NavItems() {
   };
 
   return (
-    <NavigationMenuList id="menu" className="w-full justify-between">
-      <div className="flex flex-wrap">
+    <NavigationMenuList id="menu" className="w-full justify-between gap-1">
+      <div className="flex flex-wrap gap-1">
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={getLinkStyle("/")}>
