@@ -3,7 +3,7 @@ import { getActivities } from "@/lib/sanity/sanity.endpoints";
 import { Brew, Event } from "@/lib/sanity/sanity.types";
 import Main from "@/components/main";
 import { ActivityFilter } from "@/app/activities/ActivityFilter";
-import { ClientActivities } from "@/app/activities/ClientActivities";
+import { Activities } from "@/app/activities/Activities";
 import { P } from "@/components/typography";
 
 export const metadata: Metadata = {
@@ -74,7 +74,7 @@ export default async function Page() {
   return (
     <Main>
       <ActivityFilter className="flex justify-end my-4" />
-      <ClientActivities
+      <Activities
         nextEvent={nextEvent}
         upcomingActivities={upcomingActivities}
         pastActivities={pastActivities}

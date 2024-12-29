@@ -1,4 +1,4 @@
-import { P } from "@/components/typography";
+import { h1Style, H2, P } from "@/components/typography";
 import { PropsWithChildren } from "react";
 
 const breakMessages = [
@@ -24,24 +24,34 @@ const breakMessages = [
   "Building the perfect brew station (v3.0) 🛠️",
 ];
 
-export function SectionWrapper({ children }: PropsWithChildren): JSX.Element {
-  const hasActivities =
-    (Array.isArray(children) && children.length > 0) ||
-    (typeof children === "object" && children !== null);
+export interface SectionWrapperProps {
+  id: string;
+  title: string;
+  emptyMessage?: React.ReactNode;
+}
+
+export function SectionWrapper({
+  children,
+  id,
+  title,
+  emptyMessage,
+}: PropsWithChildren<SectionWrapperProps>): JSX.Element {
+  const hasActivities = Array.isArray(children) && children.length > 0;
 
   return (
-    <ul
-      className={
-        hasActivities
-          ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          : "flex flex-row justify-start"
-      }
-    >
+    <section id={id}>
+      <H2 className={h1Style}>{title}</H2>
       {hasActivities ? (
-        children
+        <div className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}>
+          {children}
+        </div>
       ) : (
-        <P>{breakMessages[Math.floor(Math.random() * breakMessages.length)]}</P>
+        emptyMessage || (
+          <P className="flex flex-row justify-start">
+            {breakMessages[Math.floor(Math.random() * breakMessages.length)]}
+          </P>
+        )
       )}
-    </ul>
+    </section>
   );
 }

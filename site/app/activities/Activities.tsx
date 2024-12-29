@@ -3,7 +3,7 @@
 import { H1, H2, H3 } from "@/components/typography";
 import { useFilterStore } from "./store";
 import { Event, Brew } from "@/lib/sanity/sanity.types";
-import { SectionWrapper } from "./SectionWrapper";
+import { SectionWrapper, SectionWrapperProps } from "./SectionWrapper";
 import { Divider } from "@/components/divider";
 import { P } from "@/components/typography";
 import Link from "next/link";
@@ -42,34 +42,39 @@ const convertUrlsToLinks = (text: string | undefined) => {
   });
 };
 
-function buildSection(id: string, activities: any[]): JSX.Element {
+interface SectionBuilderProps extends SectionWrapperProps {
+  activities: (Event | Brew)[];
+}
+
+function buildSection({
+  activities,
+  ...sectionWrapperProps
+}: SectionBuilderProps): JSX.Element {
   return (
-    <section id={id}>
-      <SectionWrapper>
-        {activities
-          .filter(
-            (activity) => activity._type == "event" || activity._type == "brew",
-          )
-          .map((activity) => {
-            if (activity._type == "event") {
-              const event = activity as Event;
+    <SectionWrapper {...sectionWrapperProps}>
+      {activities
+        .filter(
+          (activity) => activity._type == "event" || activity._type == "brew",
+        )
+        .map((activity) => {
+          if (activity._type == "event") {
+            const event = activity as Event;
 
-              return buildEvent(event);
-            }
-            if (activity._type == "brew") {
-              const brew = activity as Brew;
+            return buildEvent(event);
+          }
+          if (activity._type == "brew") {
+            const brew = activity as Brew;
 
-              return buildBrew(brew);
-            }
-          })}
-      </SectionWrapper>
-    </section>
+            return buildBrew(brew);
+          }
+        })}
+    </SectionWrapper>
   );
 }
 
 function buildEvent(event: Event): JSX.Element {
   return (
-    <li
+    <div
       key={event._id}
       className={cn(cardStyle, "items-start", "border-l-4 border-paleBlue")}
     >
@@ -94,13 +99,13 @@ function buildEvent(event: Event): JSX.Element {
           {convertUrlsToLinks(event.description)}
         </Small>
       )}
-    </li>
+    </div>
   );
 }
 
 function buildBrew(brew: Brew): JSX.Element {
   return (
-    <li
+    <div
       key={brew._id}
       className={cn(
         cardStyle,
@@ -154,11 +159,11 @@ function buildBrew(brew: Brew): JSX.Element {
           {convertUrlsToLinks(brew.description)}
         </p>
       )}
-    </li>
+    </div>
   );
 }
 
-export function ClientActivities({
+export function Activities({
   nextEvent,
   upcomingActivities,
   pastActivities,
@@ -178,35 +183,36 @@ export function ClientActivities({
 
   return (
     <>
-      <H1>Next Event</H1>
-      <section id="next-event">
-        <SectionWrapper>
-          {filteredNextEvent ? (
-            buildEvent(filteredNextEvent)
-          ) : (
-            <P>
-              No upcoming events. Chat with us on{" "}
-              <Link className="underline" href="https://discord.gg/pvz3PW69yw">
-                Discord
-              </Link>{" "}
-              or{" "}
-              <Link className="underline" href="/contact">
-                contact us
-              </Link>{" "}
-              through our website!
-            </P>
-          )}
-        </SectionWrapper>
-      </section>
+      {buildSection({
+        id: "next-event",
+        title: "Next Event",
+        activities: filteredNextEvent ? [filteredNextEvent] : [],
+        emptyMessage: (
+          <P>
+            No upcoming events. Chat with us on{" "}
+            <Link className="underline" href="https://discord.gg/pvz3PW69yw">
+              Discord
+            </Link>{" "}
+            or{" "}
+            <Link className="underline" href="/contact">
+              contact us
+            </Link>{" "}
+            through our website!
+          </P>
+        ),
+      })}
       <Divider />
-      <H1>Upcoming Activities</H1>
-      {buildSection(
-        "upcoming-activities",
-        filterActivities(upcomingActivities),
-      )}
+      {buildSection({
+        id: "upcoming-activities",
+        title: "Upcoming Activities",
+        activities: filterActivities(upcomingActivities),
+      })}
       <Divider />
-      <H1>Past Activities</H1>
-      {buildSection("past-activities", filterActivities(pastActivities))}
+      {buildSection({
+        id: "past-activities",
+        title: "Past Activities",
+        activities: filterActivities(pastActivities),
+      })}
     </>
   );
 }
