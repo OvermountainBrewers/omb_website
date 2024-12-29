@@ -14,19 +14,19 @@ export function ActivityFilter({ className }: { className?: string }) {
       onValueChange={(value) => value && setFilterType(value as FilterType)}
     >
       <ToggleGroup.Item
-        className="px-4 py-2 rounded-l-md data-[state=on]:bg-primary data-[state=on]:text-primary-foreground bg-secondary hover:bg-secondary/90 border-r border-border"
+        className="px-4 py-2 rounded-l-md data-[state=on]:bg-paleBlue data-[state=on]:text-paleBlue-foreground bg-secondary hover:bg-secondary/90 border-r border-border"
         value="all"
       >
         All
       </ToggleGroup.Item>
       <ToggleGroup.Item
-        className="px-4 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground bg-secondary hover:bg-secondary/90 border-r border-border"
+        className="px-4 py-2 data-[state=on]:bg-paleBlue data-[state=on]:text-paleBlue-foreground bg-secondary hover:bg-secondary/90 border-r border-border"
         value="events"
       >
         Events
       </ToggleGroup.Item>
       <ToggleGroup.Item
-        className="px-4 py-2 rounded-r-md data-[state=on]:bg-primary data-[state=on]:text-primary-foreground bg-secondary hover:bg-secondary/90"
+        className="px-4 py-2 rounded-r-md data-[state=on]:bg-paleBlue data-[state=on]:text-paleBlue-foreground bg-secondary hover:bg-secondary/90"
         value="brews"
       >
         Recipes
