@@ -1,7 +1,6 @@
 import { google } from "googleapis";
 import type { drive_v3 } from "googleapis";
 import { createClient } from "@sanity/client";
-import path from "path";
 import { GaxiosResponse } from "googleapis-common";
 import sharp from "sharp";
 
