@@ -1,0 +1,38 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "main": "lib/watchDriveChanges.js",
+  "license": "ISC",
+  "scripts": {
+    "load-env": "env-cmd -f ../.env.local",
+    "check-auth": "gcloud auth application-default print-access-token > /dev/null 2>&1 || (echo 'Not authenticated. Running gcloud auth application-default login...' && gcloud auth application-default login)",
+    "prebuild": "rm -rf lib",
+    "build": "tsc",
+    "prestart": "yarn check-auth && yarn build",
+    "start": "yarn load-env functions-framework --target=watchDriveChanges --signature-type=http",
+    "predeploy": "yarn build",
+    "deploy": "yarn load-env gcloud functions deploy watchDriveChanges --runtime nodejs20 --trigger-http --region us-east1 --entry-point watchDriveChanges --no-allow-unauthenticated --service-account=$(gcloud secrets versions access latest --secret=GOOGLE_CLOUD_SERVICE_ACCOUNT) --set-env-vars NEXT_PUBLIC_SANITY_PROJECT_ID=ilp5p0ny,NEXT_PUBLIC_SANITY_DATASET=production,NEXT_PUBLIC_SANITY_API_VERSION=2024-06-21 --set-secrets=SANITY_API_WRITE_TOKEN=SANITY_API_WRITE_TOKEN:latest,GOOGLE_DRIVE_FOLDER_ID=GOOGLE_DRIVE_FOLDER_ID:latest --timeout=3600",
+    "postdeploy": "rm -rf lib"
+  },
+  "dependencies": {
+    "env-cmd": "^10.1.0",
+    "@google-cloud/functions-framework": "^3.4.4",
+    "@google-cloud/storage": "^7.14.0",
+    "path": "^0.12.7",
+    "@sanity/client": "^6.24.1",
+    "googleapis": "^144.0.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "@types/sharp": "^0.32.0",
+    "env-cmd": "^10.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "dotenv": "^16.0.0"
+  },
+  "engines": {
+    "node": "20"
+  }
+}
