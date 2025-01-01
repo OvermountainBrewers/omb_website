@@ -110,14 +110,14 @@ export default function Page() {
       <H1>Contact</H1>
       <section>
         {submitted ? (
-          <Card>
+          <Card key="submitted">
             <div className="text-center py-8">
               <H2>Thank You!</H2>
               <P>We&apos;ll get back to you as soon as possible.</P>
             </div>
           </Card>
         ) : (
-          <Card>
+          <Card key="contact">
             <form onSubmit={handleSubmit} className="w-full space-y-6">
               <FormField label="Name" name="name" />
               <FormField label="Email" name="email" type="email" />
