@@ -6,7 +6,7 @@ import Main from "@/components/main";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Learn",
+    absolute: "Learn | Overmountain Brewers",
   },
   description: "Overmountain Brewers learning resources and blog posts.",
 };

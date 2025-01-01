@@ -9,7 +9,7 @@ import Main from "@/components/main";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Resources",
+    absolute: "Resources | Overmountain Brewers",
   },
   description: "Resources for members",
 };

@@ -6,7 +6,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Meeting Minutes",
+    absolute: "Meeting Minutes | Overmountain Brewers",
   },
   description: "Overmountain Brewers meeting minutes",
 };

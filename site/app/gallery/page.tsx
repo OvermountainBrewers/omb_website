@@ -2,6 +2,14 @@
 import { Gallery } from "./Gallery";
 import { getGalleryImages } from "@/lib/sanity/sanity.endpoints";
 
+export const metadata = {
+  title: {
+    absolute: "Gallery | Overmountain Brewers",
+  },
+  description:
+    "Browse photos from our brewery events, tastings, and community gatherings.",
+};
+
 export default async function Page() {
   const images = await getGalleryImages();
 

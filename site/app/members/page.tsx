@@ -11,7 +11,7 @@ import { SanityImage } from "@/components/ui/sanity-image";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Members",
+    absolute: "Members | Overmountain Brewers",
   },
   description: "Overmountain Brewers members",
 };

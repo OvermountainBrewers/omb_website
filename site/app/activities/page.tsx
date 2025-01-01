@@ -8,7 +8,7 @@ import { P } from "@/components/typography";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Activities",
+    absolute: "Activities | Overmountain Brewers",
   },
   description: "Overmountain Brewers activities",
 };
