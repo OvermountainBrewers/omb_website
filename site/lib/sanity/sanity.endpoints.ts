@@ -14,20 +14,26 @@ import {
   allResourcesQuery,
   brewsQuery,
   eventsQuery,
+  galleryImagesQuery,
   membersQuery,
   postsQuery,
 } from "./sanity.queries";
 import type {
-  About,
-  Brew,
-  Event,
-  Link,
-  Member,
-  Post,
-  Resource,
+  SanityAbout,
+  SanityEvent,
+  SanityLink,
+  SanityPost,
+  SanityMember,
+  SanityBrew,
+  SanityGalleryImage,
+  SanityResource,
 } from "./sanity.types";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
+import {
+  buildImageWithHotspot,
+  ImageBuilderResponse,
+} from "../get_sanity_image";
 
 export function getClient(preview?: { token: string }): SanityClient {
   const client = createClient({
@@ -87,8 +93,8 @@ export async function clientFetch<QueryResponse>({
   });
 }
 
-export async function getAbout(): Promise<About> {
-  const abouts = await clientFetch<About[]>({
+export async function getAbout(): Promise<SanityAbout> {
+  const abouts = await clientFetch<SanityAbout[]>({
     query: aboutQuery,
     tags: ["about"],
   }).catch((err) => console.error(err));
@@ -96,17 +102,38 @@ export async function getAbout(): Promise<About> {
   return abouts && abouts.length ? abouts[0] : { body: [] };
 }
 
+/// The member object with the picture field converted to a SanityImageWithHotspot.
+export interface Member extends Omit<SanityMember, "picture"> {
+  picture?: ImageBuilderResponse;
+}
+
+function getMemberFromSanityMember(member: SanityMember): Member {
+  return member.picture?.ref
+    ? {
+        ...member,
+        picture: buildImageWithHotspot(member.picture, {
+          width: 200,
+          height: 200,
+        }),
+      }
+    : (member as Member);
+}
+
 export async function getAllMembers(): Promise<Member[]> {
-  const members = await clientFetch<Member[]>({
+  const members = await clientFetch<SanityMember[]>({
     query: membersQuery,
     tags: ["member"],
   }).catch((err) => console.error(err));
 
-  return members || [];
+  const processedMembers: Member[] | undefined = members?.map((member) =>
+    getMemberFromSanityMember(member),
+  );
+
+  return processedMembers || [];
 }
 
-export async function getPosts(): Promise<Post[]> {
-  const posts = await clientFetch<Post[]>({
+export async function getPosts(): Promise<SanityPost[]> {
+  const posts = await clientFetch<SanityPost[]>({
     query: postsQuery,
     tags: ["post"],
   }).catch((err) => console.error(err));
@@ -114,8 +141,8 @@ export async function getPosts(): Promise<Post[]> {
   return posts || [];
 }
 
-export async function getEvents(): Promise<Event[]> {
-  const events = await clientFetch<Event[]>({
+export async function getEvents(): Promise<SanityEvent[]> {
+  const events = await clientFetch<SanityEvent[]>({
     query: eventsQuery,
     tags: ["event"],
   }).catch((err) => console.error(err));
@@ -123,18 +150,27 @@ export async function getEvents(): Promise<Event[]> {
   return events || [];
 }
 
+export interface Brew extends Omit<SanityBrew, "brewer"> {
+  brewer: Member;
+}
+
 export async function getAllBrews(): Promise<Brew[]> {
-  const brews = await clientFetch<Brew[]>({
+  const brews = await clientFetch<SanityBrew[]>({
     query: brewsQuery,
     tags: ["brew"],
   }).catch((err) => console.error(err));
 
-  return brews || [];
+  const processedBrews: Brew[] | undefined = brews?.map((brew) => ({
+    ...brew,
+    brewer: getMemberFromSanityMember(brew.brewer),
+  }));
+
+  return processedBrews || [];
 }
 
 interface Activities {
-  brews: Brew[];
-  events: Event[];
+  brews: SanityBrew[];
+  events: SanityEvent[];
 }
 
 export async function getActivities(): Promise<Activities | void> {
@@ -147,8 +183,8 @@ export async function getActivities(): Promise<Activities | void> {
 }
 
 interface Resources {
-  links: Link[];
-  resources: Resource[];
+  links: SanityLink[];
+  resources: SanityResource[];
 }
 
 export async function getResources(): Promise<Resources | void> {
@@ -158,4 +194,22 @@ export async function getResources(): Promise<Resources | void> {
   }).catch((err) => console.error(err));
 
   return resources;
+}
+
+export interface GalleryImage extends Omit<SanityGalleryImage, "image"> {
+  image: ImageBuilderResponse;
+}
+
+export async function getGalleryImages(): Promise<GalleryImage[]> {
+  const galleryImages = await clientFetch<SanityGalleryImage[]>({
+    query: galleryImagesQuery,
+    tags: ["galleryImage"],
+  }).catch((err) => console.error(err));
+
+  const processedGalleryImages = galleryImages?.map((galleryImage) => ({
+    ...galleryImage,
+    image: buildImageWithHotspot(galleryImage.image)!,
+  }));
+
+  return processedGalleryImages || [];
 }

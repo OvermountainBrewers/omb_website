@@ -1,5 +1,5 @@
 import { getActivities } from "@/lib/sanity/sanity.endpoints";
-import { Event } from "@/lib/sanity/sanity.types";
+import { SanityEvent } from "@/lib/sanity/sanity.types";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Suspense } from "react";
@@ -25,7 +25,7 @@ async function NextEventBannerPromise(): Promise<JSX.Element | undefined> {
 
   // Find the next event using the same logic from activities page
   const nextEvent = maybeActivities?.events?.find(
-    (event: Event) =>
+    (event: SanityEvent) =>
       event.date !== undefined && Date.parse(event.date) >= Date.now(),
   );
 

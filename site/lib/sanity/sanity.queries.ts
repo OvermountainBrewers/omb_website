@@ -30,12 +30,15 @@ export const meetingMinutesQuery = groq`
 export const membersQuery = groq`
 *[_type == "member"] {
   name,
-  picture,
+  "picture": {
+    "ref": picture,
+    "metadata": picture.asset->metadata,
+    "alt": picture.alt
+  },
   officerPosition,
   favoriteBrew,
   badges,
-}
-`;
+}`;
 
 export const postsQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
@@ -79,5 +82,18 @@ export const activitiesQuery = `
   "brews": ${brewsQuery},
 }
 `;
+
+export const galleryImagesQuery = groq`
+*[_type == "galleryImage"] | order(date asc, title asc) {
+  _id,
+  date,
+  "image": {
+    "ref": image,
+    "metadata": image.asset->metadata,
+    "alt": alt
+  },
+  event,
+  title
+}`;
 
 // End Queries

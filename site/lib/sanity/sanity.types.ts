@@ -1,56 +1,37 @@
 import { PortableTextBlock } from "next-sanity";
+import { SanityImageObject } from "@sanity/image-url/lib/types/types";
+import { ImageMetadata } from "@sanity/types";
 
-export interface About {
+export interface SanityAbout {
   body: PortableTextBlock[];
 }
 
-export interface Author {
+export interface SanityAuthor {
   name?: string;
   picture?: any;
 }
 
-export interface Member {
+export interface SanityMember {
   name: string;
-  picture?: {
-    asset: {
-      _ref: string;
-      _type: string;
-    };
-    crop: {
-      right: number;
-      top: number;
-      left: number;
-      bottom: number;
-      _type: string;
-    };
-    hotspot: {
-      width: number;
-      x: number;
-      y: number;
-      height: number;
-      _type: string;
-    };
-    _type: string;
-    alt: string;
-  };
+  picture?: SanityMetaAltImage;
   officerPosition?: string;
   favoriteBrew?: string;
   badges?: ("bjcpCertified" | "homebrewer" | "brewEnthusiast")[];
 }
 
-export interface Post {
+export interface SanityPost {
   _id: string;
   title?: string;
   coverImage?: any;
   date?: string;
   _updatedAt?: string;
   excerpt?: string;
-  author?: Author;
+  author?: SanityAuthor;
   slug?: string;
   content?: any;
 }
 
-export interface Event {
+export interface SanityEvent {
   _id: string;
   _type: string;
   name?: string;
@@ -59,14 +40,14 @@ export interface Event {
   description?: string;
 }
 
-export interface Link {
+export interface SanityLink {
   _id: string;
   _type: string;
   name: string;
   url: string;
 }
 
-export interface Resource {
+export interface SanityResource {
   _id: string;
   _type: string;
   name?: string;
@@ -74,11 +55,11 @@ export interface Resource {
   fileUrl?: string;
 }
 
-export interface Brew {
+export interface SanityBrew {
   _id: string;
   _type: string;
   name?: string;
-  brewer: Member;
+  brewer: SanityMember;
   style: string;
   ingredients: {
     amount: number;
@@ -94,4 +75,24 @@ export interface Brew {
   };
   software?: string;
   equipment?: string;
+}
+
+interface ImageRef extends SanityImageObject {
+  _type: "image";
+}
+export interface SanityMetaAltImage {
+  ref: ImageRef;
+  metadata: ImageMetadata;
+  alt: string;
+}
+
+export interface SanityGalleryImage {
+  _id: string;
+  // _type: string;
+  title: string;
+  event: string;
+  image: SanityMetaAltImage;
+  date: string;
+  // sourceFolder: string;
+  // sourceFileId: string;
 }

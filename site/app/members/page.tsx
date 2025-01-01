@@ -1,14 +1,13 @@
 import { Metadata } from "next";
-import { getAllMembers } from "@/lib/sanity/sanity.endpoints";
+import { getAllMembers, Member } from "@/lib/sanity/sanity.endpoints";
 import { H1 } from "@/components/typography";
-import { SanityImage } from "../../components/ui/sanity-image";
 import { H2 } from "@/components/typography";
 import { Card } from "@/components/card";
 import { User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Member } from "@/lib/sanity/sanity.types";
 import { Large } from "@/components/large";
 import Main from "@/components/main";
+import { SanityImage } from "@/components/ui/sanity-image";
 
 export const metadata: Metadata = {
   title: {
@@ -79,12 +78,19 @@ function convertBadgeToTitle(badge: string) {
 function MemberCard({ member }: { member: Member }) {
   return (
     <Card key={member.name}>
-      {member.picture ? (
-        SanityImage({
-          sanityImageSource: member.picture,
-          alt: member.picture.alt,
-          imageProps: { className: "rounded-full" },
-        })
+      {member.picture?.url ? (
+        <SanityImage
+          {...{
+            figureProps: {
+              className: "w-[200px] h-[200px]",
+            },
+            image: member.picture,
+            imageProps: {
+              className: "rounded-full",
+            },
+            isSquare: true,
+          }}
+        />
       ) : (
         <User className="w-[200px] h-[200px]" />
       )}

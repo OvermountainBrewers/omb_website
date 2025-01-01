@@ -43,12 +43,7 @@ export default async function StyledText({
           </p>
         ),
         types: {
-          image: ({ value }) => (
-            <SanityImage
-              sanityImageSource={value.asset.url}
-              alt={value.alt || "Image"}
-            />
-          ),
+          image: ({ value }) => <SanityImage image={value.asset.url} />,
         },
         block: {
           h1: H1,

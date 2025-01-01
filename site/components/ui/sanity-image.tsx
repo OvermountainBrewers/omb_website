@@ -1,54 +1,84 @@
-"use server";
-import Image, { ImageLoader } from "next/image";
+"use client";
+
+import Image from "next/image";
 import { Suspense } from "react";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { sanityImageUrl } from "../../lib/get_sanity_image";
+import { Loader2 } from "lucide-react";
+import { ImageBuilderResponse } from "@/lib/get_sanity_image";
+import { cn } from "@/lib/utils";
 
 interface SanityImageProps {
-  sanityImageSource?: SanityImageSource;
-  alt: string;
+  image: ImageBuilderResponse;
   caption?: string;
-  imageProps?: JSX.IntrinsicElements["img"];
-  figureProps?: JSX.IntrinsicElements["figure"];
-  figureCaptionProps?: JSX.IntrinsicElements["figcaption"];
+  imageProps?: Partial<React.ComponentProps<typeof Image>>;
+  figureProps?: React.HTMLAttributes<HTMLElement>;
+  figureCaptionProps?: React.HTMLAttributes<HTMLElement>;
+  isSquare?: boolean;
 }
 
-export const SanityImage = (props: SanityImageProps) => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <SanityImageAsync {...props} />
-  </Suspense>
-);
-
-async function SanityImageAsync({
-  sanityImageSource,
-  alt,
+export function SanityImage({
+  image,
   caption,
   imageProps,
   figureProps,
-  figureCaptionProps: initialCaptionProps,
-}: SanityImageProps): Promise<JSX.Element | null> {
-  if (!sanityImageSource) return null;
+  figureCaptionProps,
+  isSquare = false,
+}: SanityImageProps) {
+  if (!image || !image.url) return null;
 
-  const image = await sanityImageUrl(sanityImageSource);
-  const { className: figCaptionClassName, ...figCaptionProps } =
-    initialCaptionProps || {};
+  const { url, metadata, alt } = image;
+  const { width, height } = metadata?.dimensions || {
+    width: 0,
+    height: 0,
+  };
+  const {
+    className: figureClassName,
+    style: figureStyle,
+    ...figurePropsRest
+  } = figureProps || {};
+  const {
+    className: imageClassName,
+    style: imageStyle,
+    ...imagePropsRest
+  } = imageProps || {};
 
   return (
-    <figure {...figureProps}>
+    <figure
+      {...figurePropsRest}
+      className={cn(
+        "relative h-full w-full overflow-hidden",
+        isSquare ? "aspect-square" : "",
+        figureClassName,
+      )}
+      style={figureStyle}
+    >
       <Image
-        src={image.url()}
+        src={url}
         alt={alt}
-        {...imageProps}
-        width={200}
-        height={200}
+        sizes={`(max-width: ${width}px) 100vw, (max-width: ${width * 2}px) 50vw, 33vw`}
+        className={cn(
+          isSquare ? "object-cover" : "object-contain",
+          imageClassName,
+        )}
+        style={{
+          ...(image.ref.hotspot
+            ? {
+                objectPosition: `${image.ref.hotspot.x * 100}% ${image.ref.hotspot.y * 100}%`,
+              }
+            : {}),
+          ...imageStyle,
+        }}
+        placeholder="blur"
+        blurDataURL={image.metadata!.lqip as string}
+        {...(isSquare ? { fill: true } : { width, height })}
+        {...imagePropsRest}
       />
       {caption && (
         <figcaption
-          className={
-            "mt-2 text-center italic text-sm text-gray-500 dark:text-gray-400 text-pretty" +
-            figCaptionClassName
-          }
-          {...figCaptionProps}
+          className={cn(
+            "mt-2 text-center italic text-sm text-muted-foreground",
+            figureCaptionProps?.className,
+          )}
+          {...figureCaptionProps}
         >
           {caption}
         </figcaption>

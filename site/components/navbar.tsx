@@ -102,6 +102,13 @@ function NavItems() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
+          <Link href="/gallery" legacyBehavior passHref>
+            <NavigationMenuLink className={getLinkStyle("/gallery")}>
+              Gallery
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/about" legacyBehavior passHref>
             <NavigationMenuLink className={getLinkStyle("/about")}>
               About

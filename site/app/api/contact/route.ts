@@ -11,11 +11,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    console.log("Received form data:", {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-    });
 
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
@@ -34,7 +29,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    console.log("Attempting to send email...");
     const result = await resend.emails.send({
       from: "contact@overmountainbrewers.com",
       to: "ombrewers@gmail.com",
@@ -45,7 +39,6 @@ Email: ${email}
 Message: ${message}
             `,
     });
-    console.log("Email send result:", result);
 
     return NextResponse.json({ success: true });
   } catch (error) {

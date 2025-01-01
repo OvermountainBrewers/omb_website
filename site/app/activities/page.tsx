@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getActivities } from "@/lib/sanity/sanity.endpoints";
-import { Brew, Event } from "@/lib/sanity/sanity.types";
+import { SanityBrew, SanityEvent } from "@/lib/sanity/sanity.types";
 import Main from "@/components/main";
 import { ActivityFilter } from "@/app/activities/ActivityFilter";
 import { Activities } from "@/app/activities/Activities";
@@ -26,11 +26,11 @@ export default async function Page() {
   // it's okay if the map has duplicate keys
   const dateToActivity = new Map();
   brews &&
-    brews.forEach((brew: Brew) => {
+    brews.forEach((brew: SanityBrew) => {
       dateToActivity.set(brew.brewDates.endDate, brew);
     });
   events &&
-    events.forEach((event: Event) => {
+    events.forEach((event: SanityEvent) => {
       dateToActivity.set(event.date, event);
     });
 
@@ -45,22 +45,22 @@ export default async function Page() {
   // split the activities into upcoming and past
   const upcomingActivities = sortedActivities.filter((activity) => {
     if (activity._type == "event") {
-      const event = activity as Event;
+      const event = activity as SanityEvent;
       return event.date ? new Date(event.date) >= new Date() : false;
     }
     if (activity._type == "brew") {
-      const brew = activity as Brew;
+      const brew = activity as SanityBrew;
       return new Date(brew.brewDates.endDate) >= new Date();
     }
     return false;
   });
   const pastActivities = sortedActivities.filter((activity) => {
     if (activity._type == "event") {
-      const event = activity as Event;
+      const event = activity as SanityEvent;
       return event.date ? new Date(event.date) < new Date() : false;
     }
     if (activity._type == "brew") {
-      const brew = activity as Brew;
+      const brew = activity as SanityBrew;
       return new Date(brew.brewDates.endDate) < new Date();
     }
     return false;
@@ -69,7 +69,7 @@ export default async function Page() {
   // filter the sorted activities for events and get the first one
   const nextEvent = upcomingActivities.find(
     (activity) => activity._type == "event",
-  ) as Event;
+  ) as SanityEvent;
 
   return (
     <Main>

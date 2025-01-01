@@ -18,7 +18,7 @@ export default async function Page() {
       <H1>Learn</H1>
       <section id="posts">
         {posts.map((post) => (
-          <Card key={post.slug}>
+          <Card key={post._id}>
             <H2>{post.title}</H2>
             <P>{post.excerpt}</P>
           </Card>

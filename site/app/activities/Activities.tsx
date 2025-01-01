@@ -2,7 +2,7 @@
 
 import { H1, H2, h2Style, H3, h3Style, H4 } from "@/components/typography";
 import { useFilterStore } from "./store";
-import { Event, Brew } from "@/lib/sanity/sanity.types";
+import { SanityEvent, SanityBrew } from "@/lib/sanity/sanity.types";
 import { SectionWrapper, SectionWrapperProps } from "./SectionWrapper";
 import { Divider } from "@/components/divider";
 import { P } from "@/components/typography";
@@ -12,9 +12,9 @@ import { cn } from "@/lib/utils";
 import { cardStyle } from "@/components/card";
 
 interface ClientActivitiesProps {
-  nextEvent: Event | undefined;
-  upcomingActivities: (Event | Brew)[];
-  pastActivities: (Event | Brew)[];
+  nextEvent: SanityEvent | undefined;
+  upcomingActivities: (SanityEvent | SanityBrew)[];
+  pastActivities: (SanityEvent | SanityBrew)[];
 }
 
 // Helper function to convert URLs to links
@@ -43,7 +43,7 @@ const convertUrlsToLinks = (text: string | undefined) => {
 };
 
 interface SectionBuilderProps extends SectionWrapperProps {
-  activities: (Event | Brew)[];
+  activities: (SanityEvent | SanityBrew)[];
 }
 
 function buildSection({
@@ -58,12 +58,12 @@ function buildSection({
         )
         .map((activity) => {
           if (activity._type == "event") {
-            const event = activity as Event;
+            const event = activity as SanityEvent;
 
             return buildEvent(event);
           }
           if (activity._type == "brew") {
-            const brew = activity as Brew;
+            const brew = activity as SanityBrew;
 
             return buildBrew(brew);
           }
@@ -72,7 +72,7 @@ function buildSection({
   );
 }
 
-function buildEvent(event: Event): JSX.Element {
+function buildEvent(event: SanityEvent): JSX.Element {
   return (
     <div key={event._id} className={cn(cardStyle, "items-start")}>
       <H3 className={cn(h2Style, "tracking-tight leading-7 text-paleBlue")}>
@@ -102,7 +102,7 @@ function buildEvent(event: Event): JSX.Element {
   );
 }
 
-function buildBrew(brew: Brew): JSX.Element {
+function buildBrew(brew: SanityBrew): JSX.Element {
   return (
     <div
       key={brew._id}
@@ -169,7 +169,7 @@ export function Activities({
 }: ClientActivitiesProps) {
   const { filterType } = useFilterStore();
 
-  const filterActivities = (activities: (Event | Brew)[]) => {
+  const filterActivities = (activities: (SanityEvent | SanityBrew)[]) => {
     return activities.filter((activity) => {
       if (filterType === "all") return true;
       if (filterType === "events") return activity._type === "event";
