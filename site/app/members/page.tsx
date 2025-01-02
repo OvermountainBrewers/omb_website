@@ -87,6 +87,7 @@ function MemberCard({ member }: { member: Member }) {
             image: member.picture,
             imageProps: {
               className: "rounded-full",
+              unoptimized: true,
             },
             isSquare: true,
           }}
