@@ -1,4 +1,4 @@
-import type { QueryParams } from "next-sanity";
+import type { PortableTextBlock, QueryParams } from "next-sanity";
 import { draftMode } from "next/headers";
 import {
   apiVersion,
@@ -16,18 +16,24 @@ import {
   eventsQuery,
   galleryImagesQuery,
   membersQuery,
+  postBySlugQuery,
+  postSlugsQuery,
   postsQuery,
+  SlugType,
 } from "./sanity.queries";
-import type {
-  SanityAbout,
-  SanityEvent,
-  SanityLink,
-  SanityPost,
-  SanityMember,
-  SanityBrew,
-  SanityGalleryImage,
-  SanityResource,
+import {
+  type SanityAbout,
+  type SanityEvent,
+  type SanityLink,
+  type SanityPost,
+  type SanityMember,
+  type SanityBrew,
+  type SanityGalleryImage,
+  type SanityResource,
+  type SanityAuthor,
+  SanityMetaAltImage,
 } from "./sanity.types";
+import { isSanityMetaAltImageWithRef } from "./sanity.type_guards";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
 import {
@@ -87,7 +93,7 @@ export async function clientFetch<QueryResponse>({
     }),
     next: {
       // ...(isDraftMode && { revalidate: 30 }),
-      revalidate: 0, // no-cache but allows nextjs to build a static page
+      revalidate: process.env.NODE_ENV === "development" ? 0 : 3600, // no-cache but allows nextjs to build a static page
       tags, // for tag-based revalidation
     },
   });
@@ -132,13 +138,99 @@ export async function getAllMembers(): Promise<Member[]> {
   return processedMembers || [];
 }
 
-export async function getPosts(): Promise<SanityPost[]> {
+interface Author extends Omit<SanityAuthor, "picture"> {
+  picture?: ImageBuilderResponse;
+}
+
+type ImageRefKey = SanityMetaAltImage["ref"]["asset"]["_ref"];
+
+interface Post extends Omit<SanityPost, "author" | "coverImage"> {
+  author?: Author;
+  coverImage?: ImageBuilderResponse;
+  contentImages?: Record<ImageRefKey, ImageBuilderResponse>;
+}
+
+function getPostFromSanityPost(post: SanityPost): Post {
+  const maybeContentAssets = post.content
+    ?.map((block: PortableTextBlock) => {
+      if (block._type === "image" && "asset" in block) {
+        return block.asset;
+      }
+    })
+    .filter(isSanityMetaAltImageWithRef) as SanityMetaAltImage[];
+
+  const contentImages = maybeContentAssets?.reduce(
+    (acc, image) => {
+      const ref = image.ref.asset._ref;
+      // only reassign if the ref is not already in the acc
+      if (!(ref in acc)) {
+        acc[ref] = buildImageWithHotspot(image)!;
+      }
+      return acc;
+    },
+    {} as Record<ImageRefKey, ImageBuilderResponse>,
+  );
+
+  const maybeAuthorImage = post.author?.picture
+    ? buildImageWithHotspot(post.author.picture)
+    : undefined;
+  const maybeCoverImage = post.coverImage
+    ? buildImageWithHotspot(post.coverImage)
+    : undefined;
+
+  return {
+    ...post,
+    coverImage: maybeCoverImage,
+    author: post.author
+      ? {
+          ...post.author,
+          picture: maybeAuthorImage,
+        }
+      : undefined,
+    contentImages: contentImages,
+  };
+}
+
+// Create a static client
+const staticClient = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION!,
+  useCdn: false,
+});
+
+// Update getPostSlugs to use static client
+export async function getPostSlugs() {
+  const slugs = await staticClient.fetch<{ slug: string }[]>(
+    `*[_type == "post" && defined(slug.current)].slug.current`,
+  );
+
+  return slugs.map((slug) => ({
+    slug: slug,
+  }));
+}
+
+export async function getPosts(): Promise<Post[]> {
   const posts = await clientFetch<SanityPost[]>({
     query: postsQuery,
     tags: ["post"],
   }).catch((err) => console.error(err));
 
-  return posts || [];
+  const processedPosts: Post[] | undefined = posts?.map(getPostFromSanityPost);
+
+  return processedPosts || [];
+}
+
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  const post = await clientFetch<SanityPost | null>({
+    query: postBySlugQuery,
+    params: { slug },
+    tags: ["post"],
+  }).catch((err) => console.error(err));
+
+  const processedPost = post ? getPostFromSanityPost(post) : null;
+
+  return processedPost;
 }
 
 export async function getEvents(): Promise<SanityEvent[]> {

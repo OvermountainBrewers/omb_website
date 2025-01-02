@@ -53,7 +53,7 @@ export function SanityImage({
     >
       <Image
         src={url}
-        alt={alt}
+        alt={alt ?? ""}
         sizes={`(max-width: ${width}px) 100vw, (max-width: ${width * 2}px) 50vw, 33vw`}
         className={cn(
           isSquare ? "object-cover" : "object-contain",

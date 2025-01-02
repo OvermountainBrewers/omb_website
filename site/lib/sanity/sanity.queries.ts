@@ -1,15 +1,19 @@
 import { groq } from "next-sanity";
 
+function groqMetaAltImage(key: string) {
+  return groq`"${key}": {
+    "ref": ${key},
+    "metadata": ${key}.asset->metadata,
+    "alt": ${key}.alt
+  }`;
+}
+
 // Fields
 const _postFields = groq`
-  _id,
-  title,
-  date,
-  _updatedAt,
-  excerpt,
-  coverImage,
+  ...,
+  ${groqMetaAltImage("coverImage")},
   "slug": slug.current,
-  "author": author->{name, picture},
+  "author": author->{name, ${groqMetaAltImage("picture")},},
 `;
 
 // End Fields
@@ -30,18 +34,26 @@ export const meetingMinutesQuery = groq`
 export const membersQuery = groq`
 *[_type == "member"] {
   name,
-  "picture": {
-    "ref": picture,
-    "metadata": picture.asset->metadata,
-    "alt": picture.alt
-  },
+  ${groqMetaAltImage("picture")},
   officerPosition,
   favoriteBrew,
   badges,
 }`;
 
+export interface SlugType {
+  slug: string;
+}
+
+export const postSlugsQuery = groq`
+*[_type == "post"]{"slug": slug.current}`;
+
 export const postsQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
+  ${_postFields}
+}`;
+
+export const postBySlugQuery = groq`
+*[_type == "post" && slug.current == $slug][0] {
   ${_postFields}
 }`;
 
@@ -87,11 +99,7 @@ export const galleryImagesQuery = groq`
 *[_type == "galleryImage"] | order(date asc, title asc) {
   _id,
   date,
-  "image": {
-    "ref": image,
-    "metadata": image.asset->metadata,
-    "alt": alt
-  },
+  ${groqMetaAltImage("image")},
   event,
   title
 }`;

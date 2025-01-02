@@ -1,4 +1,3 @@
-"use server";
 import { Gallery } from "./Gallery";
 import { getGalleryImages } from "@/lib/sanity/sanity.endpoints";
 

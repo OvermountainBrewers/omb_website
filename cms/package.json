@@ -9,6 +9,7 @@
     "dev": "yarn load-env sanity dev",
     "start": "yarn load-env sanity start",
     "build": "yarn load-env sanity build",
+    "undeploy": "yarn load-env sanity undeploy",
     "deploy": "yarn load-env sanity deploy",
     "deploy-graphql": "yarn load-env sanity graphql deploy",
     "prettify": "prettier --write \"**/*.{ts,tsx,json}\""

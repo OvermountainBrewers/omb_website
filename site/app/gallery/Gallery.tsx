@@ -32,17 +32,9 @@ export function Gallery({
           return;
         }
 
-        console.log({
-          scrollLeft: node.scrollLeft,
-          scrollWidth: node.scrollWidth,
-          clientWidth: node.clientWidth,
-        });
-
         const isAtEnd =
           node.scrollLeft >= node.scrollWidth - node.clientWidth - 1;
         const isAtStart = node.scrollLeft <= 0;
-
-        console.log({ isAtEnd, isAtStart });
 
         setHideLeftMask(isAtStart);
         setHideRightMask(isAtEnd);

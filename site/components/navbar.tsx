@@ -48,7 +48,7 @@ function NavItems() {
   const pathname = usePathname();
 
   const getLinkStyle = (path: string) => {
-    const isActive = pathname === path;
+    const isActive = pathname === path || pathname?.startsWith(path + "/");
     return `${navigationMenuTriggerStyle()} ${
       isActive
         ? "text-foreground underline decoration-primary underline-offset-4 decoration-[3px] hover:bg-accent"

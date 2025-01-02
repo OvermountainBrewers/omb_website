@@ -7,8 +7,9 @@ export interface SanityAbout {
 }
 
 export interface SanityAuthor {
+  _id: string;
   name?: string;
-  picture?: any;
+  picture?: SanityMetaAltImage;
 }
 
 export interface SanityMember {
@@ -22,13 +23,13 @@ export interface SanityMember {
 export interface SanityPost {
   _id: string;
   title?: string;
-  coverImage?: any;
+  coverImage?: SanityMetaAltImage;
   date?: string;
   _updatedAt?: string;
   excerpt?: string;
   author?: SanityAuthor;
   slug?: string;
-  content?: any;
+  content?: PortableTextBlock[];
 }
 
 export interface SanityEvent {
@@ -77,11 +78,12 @@ export interface SanityBrew {
   equipment?: string;
 }
 
-interface ImageRef extends SanityImageObject {
+export interface SanityImageType extends SanityImageObject {
   _type: "image";
 }
+
 export interface SanityMetaAltImage {
-  ref: ImageRef;
+  ref: SanityImageType;
   metadata: ImageMetadata;
   alt: string;
 }
