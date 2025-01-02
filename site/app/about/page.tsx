@@ -3,6 +3,7 @@ import { getAbout as getContent } from "@/lib/sanity/sanity.endpoints";
 import StyledText from "@/components/styled_text";
 import Main from "@/components/main";
 import { StyledArticle } from "@/components/styled_article";
+import { H1 } from "@/components/typography";
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +18,7 @@ export default async function Page() {
   return (
     <Main>
       <StyledArticle id="about">
-        <h1>About</h1>
+        <H1>About</H1>
         {StyledText({ value: content.body })}
       </StyledArticle>
     </Main>
