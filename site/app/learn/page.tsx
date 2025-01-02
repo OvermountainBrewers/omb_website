@@ -37,9 +37,7 @@ export default async function Page() {
                     />
                   </div>
                 )}
-                <H2 className="line-clamp-2 font-semibold border-b-0">
-                  {post.title}
-                </H2>
+                <H2 className="border-b-0">{post.title}</H2>
                 <P className="text-card-foreground/90">{post.excerpt}</P>
               </Link>
             </Card>
