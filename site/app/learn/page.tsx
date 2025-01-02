@@ -16,7 +16,7 @@ export default async function Page() {
   const posts = await getPosts();
 
   return (
-    <Main className="container py-12">
+    <Main className="container">
       <div className="space-y-8">
         <H1>Learn</H1>
         <section id="posts" className="flex flex-col gap-6">

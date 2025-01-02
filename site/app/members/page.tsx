@@ -93,7 +93,9 @@ function MemberCard({ member }: { member: Member }) {
           }}
         />
       ) : (
-        <User className="w-[200px] h-[200px]" />
+        <div className="w-[200px] h-[200px] flex items-center justify-center">
+          <User className="w-[150px] h-[150px]" />
+        </div>
       )}
       <H2 className="text-center mt-4">{member.name}</H2>
       {member.officerPosition && (

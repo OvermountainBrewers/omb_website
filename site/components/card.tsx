@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { Attributes, ComponentProps, PropsWithChildren } from "react";
 
 export const cardStyle =
-  "flex flex-col items-center bg-slate-800 rounded-xl p-12 m-2 border-l-4 border-paleBlue";
+  "flex flex-col items-center bg-slate-800 rounded-xl p-4 md:p-12 m-1 md:m-2 border-l-2 md:border-l-4 border-paleBlue";
 
 interface CardProps extends ComponentProps<"div"> {
   key: string;
