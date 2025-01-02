@@ -1,5 +1,7 @@
+import Main from "@/components/main";
 import { Gallery } from "./Gallery";
 import { getGalleryImages } from "@/lib/sanity/sanity.endpoints";
+import { H1 } from "@/components/typography";
 
 export const metadata = {
   title: {
@@ -15,9 +17,9 @@ export default async function Page() {
   const uniqueEvents = [...new Set(images.map((image) => image.event))];
 
   return (
-    <div className="container py-8">
-      <h1 className="text-4xl font-bold mb-6">Photo Gallery</h1>
+    <Main className="container">
+      <H1>Photo Gallery</H1>
       <Gallery initialImages={images} eventFilters={uniqueEvents} />
-    </div>
+    </Main>
   );
 }
