@@ -27,7 +27,7 @@ export default async function Page() {
     <Main>
       <H1>Links</H1>
       <section id="links">
-        <ul>
+        <ul className="space-y-4 md:space-y-8">
           {links.map((link) => (
             <li key={link._id} className={cardStyle}>
               <H2>{link.name}</H2>
@@ -46,12 +46,12 @@ export default async function Page() {
       <Divider />
       <H1>Resources</H1>
       <section id="downloads">
-        <ul>
+        <ul className="space-y-4 md:space-y-8">
           {resources.map((resource) => (
             <li key={resource._id} className={cardStyle}>
               <H2>{resource.name}</H2>
               <P>{resource.description}</P>
-              <Button asChild className="mt-12">
+              <Button asChild className="mt-4 md:mt-8">
                 <Link href={`${resource.fileUrl}?dl=`}>Download</Link>
               </Button>
             </li>
