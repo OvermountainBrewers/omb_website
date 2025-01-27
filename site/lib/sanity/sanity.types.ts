@@ -38,7 +38,7 @@ export interface SanityMeetingMinutes {
   meetingDate?: string;
   _updatedAt?: string;
   author?: SanityAuthor;
-  slug?: string;
+  slug: string;
   sharedTastings?: PortableTextBlock[];
   meetingNotes?: PortableTextBlock[];
 }

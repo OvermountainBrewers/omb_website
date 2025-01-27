@@ -16,6 +16,7 @@ import {
   eventsQuery,
   galleryImagesQuery,
   meetingMinutesBySlugQuery,
+  meetingMinutesQuery,
   membersQuery,
   postBySlugQuery,
   postSlugsQuery,
@@ -166,6 +167,18 @@ function getMeetingMinutesFromSanityMeetingMinutes(
         }
       : undefined,
   };
+}
+
+export async function getMeetingMinutes(): Promise<MeetingMinutes[]> {
+  const meetingMinutes = await clientFetch<SanityMeetingMinutes[]>({
+    query: meetingMinutesQuery,
+    tags: ["meetingMinutes"],
+  }).catch((err) => console.error(err));
+
+  const processedMeetingMinutes: MeetingMinutes[] | undefined =
+    meetingMinutes?.map(getMeetingMinutesFromSanityMeetingMinutes);
+
+  return processedMeetingMinutes || [];
 }
 
 interface Post extends Omit<SanityPost, "author" | "coverImage"> {

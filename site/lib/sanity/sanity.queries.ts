@@ -19,7 +19,7 @@ const _postFields = groq`
 const _meetingMinutesFields = groq`
   ...,
   "slug": slug.current,
-  "author": author->{name, ${groqMetaAltImage("picture")},},
+  "author": author->{name, ${groqMetaAltImage("picture")},}
 `;
 
 // End Fields
@@ -33,7 +33,7 @@ export const aboutQuery = groq`
 
 export const meetingMinutesQuery = groq`
 *[_type == "meetingMinutes"] | order(meetingDate desc, _updatedAt desc) {
-  ...,
+  ${_meetingMinutesFields},
 }`;
 
 export const meetingMinutesBySlugQuery = groq`
