@@ -6,6 +6,8 @@ import {
 } from "@/lib/sanity/sanity.endpoints";
 import { StyledArticle } from "@/components/styled_article";
 import Main from "@/components/main";
+import { H3 } from "@/components/typography";
+import { Divider } from "@/components/divider";
 
 interface MeetingMinutesPageProps {
   params: {
@@ -55,11 +57,13 @@ export default async function MeetingMinutesPage({
           </div>
         </header>
 
+        <H3>Tastings</H3>
         {sharedTastings &&
           StyledText({
             value: sharedTastings,
           })}
-
+        <Divider></Divider>
+        <H3>Meeting Notes</H3>
         {meetingNotes &&
           StyledText({
             value: meetingNotes,
