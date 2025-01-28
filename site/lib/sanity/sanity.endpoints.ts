@@ -15,6 +15,8 @@ import {
   brewsQuery,
   eventsQuery,
   galleryImagesQuery,
+  meetingMinutesBySlugQuery,
+  meetingMinutesQuery,
   membersQuery,
   postBySlugQuery,
   postSlugsQuery,
@@ -26,6 +28,7 @@ import {
   type SanityEvent,
   type SanityLink,
   type SanityPost,
+  type SanityMeetingMinutes,
   type SanityMember,
   type SanityBrew,
   type SanityGalleryImage,
@@ -144,6 +147,40 @@ interface Author extends Omit<SanityAuthor, "picture"> {
 
 type ImageRefKey = SanityMetaAltImage["ref"]["asset"]["_ref"];
 
+interface MeetingMinutes extends Omit<SanityMeetingMinutes, "author"> {
+  author?: Author;
+}
+
+function getMeetingMinutesFromSanityMeetingMinutes(
+  meetingMinutes: SanityMeetingMinutes,
+): MeetingMinutes {
+  const maybeAuthorImage = meetingMinutes.author?.picture
+    ? buildImageWithHotspot(meetingMinutes.author.picture)
+    : undefined;
+
+  return {
+    ...meetingMinutes,
+    author: meetingMinutes.author
+      ? {
+          ...meetingMinutes.author,
+          picture: maybeAuthorImage,
+        }
+      : undefined,
+  };
+}
+
+export async function getMeetingMinutes(): Promise<MeetingMinutes[]> {
+  const meetingMinutes = await clientFetch<SanityMeetingMinutes[]>({
+    query: meetingMinutesQuery,
+    tags: ["meetingMinutes"],
+  }).catch((err) => console.error(err));
+
+  const processedMeetingMinutes: MeetingMinutes[] | undefined =
+    meetingMinutes?.map(getMeetingMinutesFromSanityMeetingMinutes);
+
+  return processedMeetingMinutes || [];
+}
+
 interface Post extends Omit<SanityPost, "author" | "coverImage"> {
   author?: Author;
   coverImage?: ImageBuilderResponse;
@@ -232,6 +269,32 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const processedPost = post ? getPostFromSanityPost(post) : null;
 
   return processedPost;
+}
+
+export async function getMeetingMinutesSlugs() {
+  const slugs = await staticClient.fetch<{ slug: string }[]>(
+    `*[_type == "meetingMinutes" && defined(slug.current)].slug.current`,
+  );
+
+  return slugs.map((slug) => ({
+    slug: slug,
+  }));
+}
+
+export async function getMeetingMinutesBySlug(
+  slug: string,
+): Promise<MeetingMinutes | null> {
+  const meetingMinutes = await clientFetch<SanityMeetingMinutes | null>({
+    query: meetingMinutesBySlugQuery,
+    params: { slug },
+    tags: ["meetingMinutes"],
+  }).catch((err) => console.error(err));
+
+  const processedMeetingMinutes = meetingMinutes
+    ? getMeetingMinutesFromSanityMeetingMinutes(meetingMinutes)
+    : null;
+
+  return processedMeetingMinutes;
 }
 
 export async function getEvents(): Promise<SanityEvent[]> {

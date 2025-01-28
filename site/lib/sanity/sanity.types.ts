@@ -32,6 +32,17 @@ export interface SanityPost {
   content?: PortableTextBlock[];
 }
 
+export interface SanityMeetingMinutes {
+  _id: string;
+  title?: string;
+  meetingDate?: string;
+  _updatedAt?: string;
+  author?: SanityAuthor;
+  slug: string;
+  sharedTastings?: PortableTextBlock[];
+  meetingNotes?: PortableTextBlock[];
+}
+
 export interface SanityEvent {
   _id: string;
   _type: string;

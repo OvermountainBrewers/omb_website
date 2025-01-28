@@ -4,6 +4,7 @@ import {brewType} from './brew'
 import {eventType} from './event'
 import {galleryImageType} from './galleryImage'
 import {linkType} from './link'
+import {meetingMinutesType} from './meetingMinutes'
 import {memberType} from './member'
 import {postType} from './post'
 import {resourceType} from './resource'
@@ -39,6 +40,7 @@ export const schemaTypes: GroupDefinition<SchemaTypeDefinition>[] = [
   groupInto(linkType, resourceGroup),
   groupInto(resourceType, resourceGroup),
   galleryImageType,
+  meetingMinutesType,
   memberType,
   postType,
 ]
