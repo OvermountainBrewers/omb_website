@@ -36,7 +36,7 @@ export default async function Page() {
 
   // then sort the map by the key
   const sortedDateToActivity = new Map(
-    Array.from(dateToActivity).sort(([a], [b]) => b.localeCompare(a)),
+    Array.from(dateToActivity).sort(([a], [b]) => a.localeCompare(b)),
   );
 
   // then flatten the map into an array
@@ -54,17 +54,19 @@ export default async function Page() {
     }
     return false;
   });
-  const pastActivities = sortedActivities.filter((activity) => {
-    if (activity._type == "event") {
-      const event = activity as SanityEvent;
-      return event.date ? new Date(event.date) < new Date() : false;
-    }
-    if (activity._type == "brew") {
-      const brew = activity as SanityBrew;
-      return new Date(brew.brewDates.endDate) < new Date();
-    }
-    return false;
-  });
+  const pastActivities = sortedActivities
+    .filter((activity) => {
+      if (activity._type == "event") {
+        const event = activity as SanityEvent;
+        return event.date ? new Date(event.date) < new Date() : false;
+      }
+      if (activity._type == "brew") {
+        const brew = activity as SanityBrew;
+        return new Date(brew.brewDates.endDate) < new Date();
+      }
+      return false;
+    })
+    .reverse();
 
   // filter the sorted activities for events and get the first one
   const nextEvent = upcomingActivities.find(
