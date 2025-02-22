@@ -24,10 +24,12 @@ async function NextEventBannerPromise(): Promise<JSX.Element | undefined> {
   const maybeActivities = await getActivities();
 
   // Find the next event using the same logic from activities page
-  const nextEvent = maybeActivities?.events?.find(
-    (event: SanityEvent) =>
-      event.date !== undefined && Date.parse(event.date) >= Date.now(),
-  );
+  const nextEvent = maybeActivities?.events
+    ?.reverse()
+    .find(
+      (event: SanityEvent) =>
+        event.date !== undefined && Date.parse(event.date) >= Date.now(),
+    );
 
   return (
     nextEvent && (
