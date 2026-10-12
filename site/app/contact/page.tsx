@@ -77,10 +77,12 @@ const FormField = ({
 export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFailed(false);
 
     const formData = new FormData(e.currentTarget);
     // If the honeypot field is filled, silently reject in api/contact/route.ts
@@ -97,9 +99,12 @@ export default function Page() {
 
       if (response.ok) {
         setSubmitted(true);
+      } else {
+        setFailed(true);
       }
     } catch (error) {
       console.error(error);
+      setFailed(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -137,6 +142,13 @@ export default function Page() {
                   autoComplete="off"
                 />
               </div>
+
+              {failed && (
+                <p role="alert" className="text-sm text-destructive">
+                  Sorry, your message didn&apos;t send. Please try again, or
+                  email us at ombrewers@gmail.com.
+                </p>
+              )}
 
               <Button
                 type="submit"

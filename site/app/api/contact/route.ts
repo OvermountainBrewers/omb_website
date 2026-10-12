@@ -29,7 +29,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    const result = await resend.emails.send({
+    // Resend reports failures in the result instead of throwing, so an
+    // unchecked call told the visitor "Thank you" for mail that was never sent.
+    const { error } = await resend.emails.send({
       from: "contact@overmountainbrewers.com",
       to: "ombrewers@gmail.com",
       subject: `New Contact Form Submission from ${name}`,
@@ -39,6 +41,14 @@ Email: ${email}
 Message: ${message}
             `,
     });
+
+    if (error) {
+      console.error("Resend rejected the contact email:", error);
+      return NextResponse.json(
+        { error: "Error sending email" },
+        { status: 502 },
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
