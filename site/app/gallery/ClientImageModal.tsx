@@ -57,11 +57,11 @@ export function ClientImageModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl w-full h-[90vh] p-0 border-none bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <DialogContent className="max-w-7xl w-full h-[90vh] p-0 border-none bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60">
         {/* Close button */}
         <button
           onClick={() => onOpenChange(false)}
-          className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+          className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
         >
           <X className="h-6 w-6" />
           <span className="sr-only">Close</span>
@@ -73,7 +73,7 @@ export function ClientImageModal({
           {/* Navigation buttons */}
           <button
             onClick={previous}
-            className="absolute left-4 z-50 rounded-full p-2 bg-background/20 backdrop-blur hover:bg-background/40 transition-colors"
+            className="absolute left-4 z-50 rounded-full p-2 bg-background/20 backdrop-blur-sm hover:bg-background/40 transition-colors"
             aria-label="Previous image"
           >
             <ChevronLeft className="h-8 w-8" />
@@ -89,7 +89,7 @@ export function ClientImageModal({
               }}
               imageProps={{
                 fill: false,
-                className: "!relative h-auto w-auto max-h-full max-w-full",
+                className: "relative! h-auto w-auto max-h-full max-w-full",
                 width: image.image.metadata?.dimensions?.width,
                 height: image.image.metadata?.dimensions?.height,
                 sizes: "100vw",
@@ -99,7 +99,7 @@ export function ClientImageModal({
 
           <button
             onClick={next}
-            className="absolute right-4 z-50 rounded-full p-2 bg-background/20 backdrop-blur hover:bg-background/40 transition-colors"
+            className="absolute right-4 z-50 rounded-full p-2 bg-background/20 backdrop-blur-sm hover:bg-background/40 transition-colors"
             aria-label="Next image"
           >
             <ChevronRight className="h-8 w-8" />

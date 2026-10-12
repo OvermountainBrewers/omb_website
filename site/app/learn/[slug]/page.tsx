@@ -31,9 +31,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <Main>
       <StyledArticle>
-        <header className="mb-8 space-y-4">
-          <h1 className="m-0">{title}</h1>
-          <div className="flex items-center gap-x-4 text-sm not-prose text-muted-foreground">
+        <header className="mb-8">
+          {/* Important modifier: in Tailwind 4 the typography plugin's h1
+              margin is emitted after m-0 and won, adding 40px below. */}
+          <h1 className="m-0!">{title}</h1>
+          <div className="mt-4 flex items-center gap-x-4 text-sm not-prose text-muted-foreground">
             {author?.name && <span>By {author.name}</span>}
             {date && (
               <>
@@ -55,7 +57,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <SanityImage
               image={coverImage}
               imageProps={{
-                className: "aspect-[2/1] object-cover rounded-lg",
+                className: "aspect-2/1 object-cover rounded-lg",
               }}
             />
           </figure>

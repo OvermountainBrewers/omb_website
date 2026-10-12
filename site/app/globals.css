@@ -1,11 +1,43 @@
-/* This injects Tailwind's base styles and any base styles registered by plugins. */
-@tailwind base;
+@import "tailwindcss";
 
-/* This injects Tailwind's component classes and any component classes registered by plugins. */
-@tailwind components;
+/* The theme still lives in tailwind.config.ts: @tailwindcss/typography reads
+   its prose customisations from the JS config's `typography` key. */
+@config "../tailwind.config.ts";
 
-/* This injects Tailwind's utility classes and any utility classes registered by plugins. */
-@tailwind utilities;
+@utility scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+@utility mask-fade-edges {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 2%,
+    black 98%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 2%,
+    black 98%,
+    transparent 100%
+  );
+}
+
+@utility mask-fade-left {
+  mask-image: linear-gradient(to right, transparent, black 2%);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 2%);
+}
+
+@utility mask-fade-right {
+  mask-image: linear-gradient(to right, black 98%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 98%, transparent 100%);
+}
 
 @layer base {
   :root {
@@ -58,55 +90,19 @@
     background-color: hsl(var(--background));
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    html {
-      @apply scroll-smooth;
-    }
-    body {
-      @apply bg-background text-foreground;
-      /* font-feature-settings: "rlig" 1, "calt" 1; */
-      font-synthesis-weight: none;
-      text-rendering: optimizeLegibility;
-    }
+  /* Kept directly in `base`, not a nested `@layer base`: Tailwind 4 emits
+     native cascade layers, where a nested layer loses to its parent, so the
+     nested version let lighter default borders override border-border. */
+  * {
+    @apply border-border;
   }
-}
-
-@layer utilities {
-  .scrollbar-none {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  html {
+    @apply scroll-smooth;
   }
-  .scrollbar-none::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
-  }
-
-  .mask-fade-edges {
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 2%,
-      black 98%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 2%,
-      black 98%,
-      transparent 100%
-    );
-  }
-
-  .mask-fade-left {
-    mask-image: linear-gradient(to right, transparent, black 2%);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 2%);
-  }
-
-  .mask-fade-right {
-    mask-image: linear-gradient(to right, black 98%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 98%, transparent 100%);
+  body {
+    @apply bg-background text-foreground;
+    /* font-feature-settings: "rlig" 1, "calt" 1; */
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
   }
 }

@@ -27,17 +27,16 @@ export default async function Page() {
     <Main>
       <H1>Links</H1>
       <section id="links">
-        <ul className="space-y-4 md:space-y-8">
+        <ul className="[&>li+li]:mt-4 [&>li+li]:mb-0 md:[&>li+li]:mt-8">
           {links.map((link) => (
             <li key={link._id} className={cardStyle}>
               <H2>{link.name}</H2>
-              <Button asChild>
-                <Link
-                  href={link.url}
-                  className="whitespace-break-spaces break-all"
-                >
-                  {link.url}
-                </Link>
+              {/* Wrapping classes go on Button, not Link: Slot concatenates
+                  the two class lists without tailwind-merge, so Tailwind 4's
+                  utility order let the button's whitespace-nowrap win and long
+                  URLs overflowed the page on mobile. */}
+              <Button asChild className="whitespace-break-spaces break-all">
+                <Link href={link.url}>{link.url}</Link>
               </Button>
             </li>
           ))}
@@ -46,7 +45,7 @@ export default async function Page() {
       <Divider />
       <H1>Resources</H1>
       <section id="downloads">
-        <ul className="space-y-4 md:space-y-8">
+        <ul className="[&>li+li]:mt-4 [&>li+li]:mb-0 md:[&>li+li]:mt-8">
           {resources.map((resource) => (
             <li key={resource._id} className={cardStyle}>
               <H2>{resource.name}</H2>

@@ -13,7 +13,7 @@ export const Table = ({ headers, rows }: TableProps): React.JSX.Element => (
           {headers.map((header) => (
             <th
               key={`header-${header}`}
-              className="border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right"
+              className="border px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right"
             >
               {header}
             </th>
@@ -29,7 +29,7 @@ export const Table = ({ headers, rows }: TableProps): React.JSX.Element => (
             {row.map((cell, cellIndex) => (
               <td
                 key={`${headers[rowIndex]}-${cellIndex}`}
-                className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
+                className="border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right"
               >
                 {cell}
               </td>

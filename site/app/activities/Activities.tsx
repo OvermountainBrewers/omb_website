@@ -75,7 +75,15 @@ function buildSection({
 function buildEvent(event: SanityEvent): React.JSX.Element {
   return (
     <div key={event._id} className={cn(cardStyle, "items-start")}>
-      <H3 className={cn(h2Style, "tracking-tight leading-7 text-paleBlue")}>
+      {/* md:leading-9: Tailwind 4 lets an explicit leading-* beat the
+          line height of a responsive text-* size; v3 let md:text-3xl's 36px
+          win at md and up. */}
+      <H3
+        className={cn(
+          h2Style,
+          "tracking-tight leading-7 md:leading-9 text-paleBlue",
+        )}
+      >
         {event.name}
       </H3>
       {event.location && (

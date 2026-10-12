@@ -52,7 +52,7 @@ export default function Home() {
       </div>
       <section
         id="links"
-        className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left"
+        className="grid text-center lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left"
       >
         {Anchor({
           href: "/members",

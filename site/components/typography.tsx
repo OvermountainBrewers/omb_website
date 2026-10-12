@@ -34,7 +34,7 @@ export const H4 = ({
   <h4 className={cn(h4Style, className)}>{children}</h4>
 );
 
-export const pStyle = "leading-7 [&:not(:first-child)]:mt-6 text-md md:text-lg";
+export const pStyle = "leading-7 not-first:mt-6 text-md md:text-lg";
 export const P = ({
   children,
   className,

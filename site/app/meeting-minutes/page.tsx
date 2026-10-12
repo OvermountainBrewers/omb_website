@@ -17,9 +17,9 @@ export default async function Page() {
   const meetingMinutes = await getMeetingMinutes();
   return (
     <Main>
-      <div className="space-y-8 mb-8">
+      <div className="mb-8">
         <H1>Meeting Minutes</H1>
-        <section id="meeting-minutes" className="flex flex-col gap-6">
+        <section id="meeting-minutes" className="mt-8 flex flex-col gap-6">
           {meetingMinutes.map((meetingMinutesInfo) => (
             <Link
               href={`/meeting-minutes/${meetingMinutesInfo.slug}`}

@@ -17,9 +17,9 @@ export default async function Page() {
 
   return (
     <Main className="container">
-      <div className="space-y-8">
+      <div>
         <H1>Learn</H1>
-        <section id="posts" className="flex flex-col gap-6">
+        <section id="posts" className="mt-8 flex flex-col gap-6">
           {posts.map((post) => (
             <Card
               key={post._id}
@@ -32,7 +32,7 @@ export default async function Page() {
                       image={post.coverImage}
                       imageProps={{
                         className:
-                          "aspect-[16/9] object-cover transition-transform duration-300 group-hover:scale-105",
+                          "aspect-video object-cover transition-transform duration-300 group-hover:scale-105",
                       }}
                     />
                   </div>
