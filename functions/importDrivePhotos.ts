@@ -2,6 +2,7 @@ import { google } from "googleapis";
 import type { drive_v3 } from "googleapis";
 import { createClient } from "@sanity/client";
 import sharp from "sharp";
+import { pathToFileURL } from "node:url";
 
 const FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID!;
 
@@ -190,4 +191,11 @@ async function importPhotosFromDrive() {
   }
 }
 
-importPhotosFromDrive().catch(console.error);
+// Run the full backfill only when this file is executed directly
+// (`node lib/importDrivePhotos.js`). watchDriveChanges imports
+// `processNewImage` from this module, and an unconditional call here started
+// an un-awaited import of every Drive folder on each cold start of the deployed
+// function, competing with the request it was started to serve.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  importPhotosFromDrive().catch(console.error);
+}
