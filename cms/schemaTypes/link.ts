@@ -1,4 +1,4 @@
-import {LinkIcon as icon} from '@sanity/icons'
+import {LinkIcon as icon} from '@sanity/icons/Link'
 import {defineField, defineType, UrlRule} from 'sanity'
 import {link, required} from '../validations'
 

@@ -1,4 +1,4 @@
-import {DropIcon as icon} from '@sanity/icons'
+import {DropIcon as icon} from '@sanity/icons/Drop'
 import {defineField, defineType} from 'sanity'
 import {memberType} from './member'
 import {required, requiredArray} from '../validations'

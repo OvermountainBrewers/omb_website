@@ -1,4 +1,4 @@
-import {ImageIcon as icon} from '@sanity/icons'
+import {ImageIcon as icon} from '@sanity/icons/Image'
 import {defineField, defineType} from 'sanity'
 import {required} from '../validations'
 

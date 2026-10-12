@@ -1,4 +1,4 @@
-import {BookIcon as icon} from '@sanity/icons'
+import {BookIcon as icon} from '@sanity/icons/Book'
 import {format, parseISO} from 'date-fns'
 import {defineField, defineType} from 'sanity'
 

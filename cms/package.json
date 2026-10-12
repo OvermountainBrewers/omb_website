@@ -12,34 +12,42 @@
     "undeploy": "yarn load-env sanity undeploy",
     "deploy": "yarn load-env sanity deploy",
     "deploy-graphql": "yarn load-env sanity graphql deploy",
-    "prettify": "prettier --write \"**/*.{ts,tsx,json}\""
+    "prettify": "prettier --write \"**/*.{ts,tsx,json}\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
-    "@sanity/icons": "^3.0.0",
-    "@sanity/ui": "^2.0.11",
-    "@sanity/vision": "^3.47.1",
-    "env-cmd": "^10.1.0",
+    "@sanity/icons": "^5.2.3",
+    "@sanity/ui": "^4.4.0",
+    "@sanity/vision": "^6.18.0",
+    "date-fns": "^4.4.0",
+    "env-cmd": "^11.0.0",
     "pluralize": "^8.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sanity": "^3.37.1",
-    "styled-components": "6.1.8"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sanity": "^6.18.0",
+    "styled-components": "^6.5.3"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^4.0.0",
-    "@types/react": "^18",
-    "eslint": "^8.6.0",
-    "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.0.2",
-    "typescript": "^5.1.6"
+    "@sanity/eslint-config-studio": "^7.0.0",
+    "@types/node": "^24",
+    "@types/pluralize": "^0.0.33",
+    "@types/react": "^19",
+    "eslint": "^10",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3"
   },
   "prettier": {
     "semi": false,
     "printWidth": 100,
     "bracketSpacing": false,
     "singleQuote": true
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

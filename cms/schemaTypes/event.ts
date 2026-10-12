@@ -1,4 +1,4 @@
-import {SparkleIcon as icon} from '@sanity/icons'
+import {SparkleIcon as icon} from '@sanity/icons/Sparkle'
 import {defineField, defineType} from 'sanity'
 import {required} from '../validations'
 

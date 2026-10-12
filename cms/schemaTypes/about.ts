@@ -1,4 +1,4 @@
-import {InfoOutlineIcon as icon} from '@sanity/icons'
+import {InfoOutlineIcon as icon} from '@sanity/icons/InfoOutline'
 import {defineField, defineType} from 'sanity'
 
 export const aboutType = defineType({
