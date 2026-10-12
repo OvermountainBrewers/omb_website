@@ -12,7 +12,7 @@ export const Card: React.FC<PropsWithChildren<CardProps>> = ({
   children,
   key,
   className,
-}): JSX.Element => (
+}): React.JSX.Element => (
   <div key={key} className={cn(cardStyle, className)}>
     {children}
   </div>

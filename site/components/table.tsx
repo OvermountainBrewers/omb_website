@@ -5,7 +5,7 @@ interface TableProps {
   rows: string[][];
 }
 
-export const Table = ({ headers, rows }: TableProps): JSX.Element => (
+export const Table = ({ headers, rows }: TableProps): React.JSX.Element => (
   <div className="my-6 w-full overflow-y-auto">
     <table className="w-full">
       <thead>

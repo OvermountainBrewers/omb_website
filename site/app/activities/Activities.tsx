@@ -49,7 +49,7 @@ interface SectionBuilderProps extends SectionWrapperProps {
 function buildSection({
   activities,
   ...sectionWrapperProps
-}: SectionBuilderProps): JSX.Element {
+}: SectionBuilderProps): React.JSX.Element {
   return (
     <SectionWrapper {...sectionWrapperProps}>
       {activities
@@ -72,7 +72,7 @@ function buildSection({
   );
 }
 
-function buildEvent(event: SanityEvent): JSX.Element {
+function buildEvent(event: SanityEvent): React.JSX.Element {
   return (
     <div key={event._id} className={cn(cardStyle, "items-start")}>
       <H3 className={cn(h2Style, "tracking-tight leading-7 text-paleBlue")}>
@@ -102,7 +102,7 @@ function buildEvent(event: SanityEvent): JSX.Element {
   );
 }
 
-function buildBrew(brew: SanityBrew): JSX.Element {
+function buildBrew(brew: SanityBrew): React.JSX.Element {
   return (
     <div
       key={brew._id}

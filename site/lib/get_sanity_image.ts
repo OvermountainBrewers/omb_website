@@ -1,5 +1,4 @@
-import imageUrlBuilder from "@sanity/image-url";
-import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
+import { createImageUrlBuilder, type ImageUrlBuilder } from "@sanity/image-url";
 
 import { client } from "./sanity/sanity_client";
 import { SanityMetaAltImage } from "../lib/sanity/sanity.types";
@@ -14,15 +13,17 @@ interface ImageBuilderMetadata extends Omit<ImageMetadata, "dimensions"> {
   palette?: ImagePalette; // explicitly declare it even though it exists in ImageMetadata
 }
 
-export interface ImageBuilderResponse
-  extends Omit<SanityMetaAltImage, "metadata"> {
+export interface ImageBuilderResponse extends Omit<
+  SanityMetaAltImage,
+  "metadata"
+> {
   url: string;
   metadata?: ImageBuilderMetadata;
 }
 
 // Initialize the builder only once.
 // This will get reused across function calls.
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 const sanityImageUrl = (image: SanityMetaAltImage): ImageUrlBuilder =>
   builder.image(image.ref);

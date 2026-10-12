@@ -60,69 +60,57 @@ function NavItems() {
     <NavigationMenuList id="menu" className="w-full justify-between gap-1">
       <div className="flex flex-wrap gap-1">
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/")}>
-              Home
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink asChild className={getLinkStyle("/")}>
+            <Link href="/">Home</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/members" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/members")}>
-              Members
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink asChild className={getLinkStyle("/members")}>
+            <Link href="/members">Members</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/learn" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/learn")}>
-              Learn
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink asChild className={getLinkStyle("/learn")}>
+            <Link href="/learn">Learn</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/activities" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/activities")}>
-              Activities
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink asChild className={getLinkStyle("/activities")}>
+            <Link href="/activities">Activities</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/meeting-minutes" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/meeting-minutes")}>
-              Meeting Minutes
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink
+            asChild
+            className={getLinkStyle("/meeting-minutes")}
+          >
+            <Link href="/meeting-minutes">Meeting Minutes</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/resources" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/resources")}>
-              Resources
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink asChild className={getLinkStyle("/resources")}>
+            <Link href="/resources">Resources</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/gallery" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/gallery")}>
-              Gallery
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink asChild className={getLinkStyle("/gallery")}>
+            <Link href="/gallery">Gallery</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/about" legacyBehavior passHref>
-            <NavigationMenuLink className={getLinkStyle("/about")}>
-              About
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink asChild className={getLinkStyle("/about")}>
+            <Link href="/about">About</Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </div>
 
       <NavigationMenuItem>
-        <Link href="https://discord.gg/pvz3PW69yw" legacyBehavior passHref>
-          <NavigationMenuLink className="inline-flex items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2">
-            Discord
-          </NavigationMenuLink>
-        </Link>
+        <NavigationMenuLink
+          asChild
+          className="inline-flex items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2"
+        >
+          <Link href="https://discord.gg/pvz3PW69yw">Discord</Link>
+        </NavigationMenuLink>
       </NavigationMenuItem>
     </NavigationMenuList>
   );

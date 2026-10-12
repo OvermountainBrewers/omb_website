@@ -10,9 +10,10 @@ import { H3 } from "@/components/typography";
 import { Divider } from "@/components/divider";
 
 interface MeetingMinutesPageProps {
-  params: {
+  // Next 15+ passes route params as a Promise.
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 /// This is the entrypoint for the dynamic route of [slug]
@@ -21,9 +22,8 @@ export default async function MeetingMinutesPage({
   params,
 }: MeetingMinutesPageProps) {
   // Handle common user URL mistakes
-  const sanitizedSlug = params.slug
-    .replace(/\/+/g, "/")
-    .replace(/^\/|\/$/g, "");
+  const { slug } = await params;
+  const sanitizedSlug = slug.replace(/\/+/g, "/").replace(/^\/|\/$/g, "");
 
   const meetingMinutes = await getMeetingMinutesBySlug(sanitizedSlug);
 

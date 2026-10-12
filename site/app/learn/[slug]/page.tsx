@@ -7,18 +7,18 @@ import { StyledArticle } from "@/components/styled_article";
 import Main from "@/components/main";
 
 interface BlogPostPageProps {
-  params: {
+  // Next 15+ passes route params as a Promise.
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 /// This is the entrypoint for the dynamic route of [slug]
 /// NextJS provides the params object, which contains the slug
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Handle common user URL mistakes
-  const sanitizedSlug = params.slug
-    .replace(/\/+/g, "/")
-    .replace(/^\/|\/$/g, "");
+  const { slug } = await params;
+  const sanitizedSlug = slug.replace(/\/+/g, "/").replace(/^\/|\/$/g, "");
 
   const post = await getPostBySlug(sanitizedSlug);
 

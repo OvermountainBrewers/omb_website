@@ -1,5 +1,5 @@
 import { PortableTextBlock } from "next-sanity";
-import { SanityImageObject } from "@sanity/image-url/lib/types/types";
+import type { SanityImageObject, SanityReference } from "@sanity/image-url";
 import { ImageMetadata } from "@sanity/types";
 
 export interface SanityAbout {
@@ -91,6 +91,9 @@ export interface SanityBrew {
 
 export interface SanityImageType extends SanityImageObject {
   _type: "image";
+  // @sanity/image-url v2 widened `asset` to `SanityReference | SanityAsset`.
+  // Our GROQ projections return the raw image field, which is always a reference.
+  asset: SanityReference;
 }
 
 export interface SanityMetaAltImage {

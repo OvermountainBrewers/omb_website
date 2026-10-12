@@ -37,6 +37,7 @@ import {
   SanityMetaAltImage,
 } from "./sanity.types";
 import { isSanityMetaAltImageWithRef } from "./sanity.type_guards";
+import { findNextEvent } from "./find_next_event";
 import { createClient, type SanityClient } from "next-sanity";
 import { client } from "./sanity_client";
 import {
@@ -64,7 +65,7 @@ export function getClient(preview?: { token: string }): SanityClient {
       token: preview.token,
       useCdn: false,
       ignoreBrowserTokenWarning: true,
-      perspective: "previewDrafts",
+      perspective: "drafts",
     });
   }
   return client;
@@ -92,7 +93,7 @@ export async function clientFetch<QueryResponse>({
   return client.fetch<QueryResponse>(query, params, {
     token: readToken,
     ...(isDraftMode && {
-      perspective: "previewDrafts",
+      perspective: "drafts",
     }),
     next: {
       // ...(isDraftMode && { revalidate: 30 }),
@@ -336,6 +337,13 @@ export async function getActivities(): Promise<Activities | void> {
   }).catch((err) => console.error(err));
 
   return activities;
+}
+
+/// The soonest event that has not happened yet, as of when the page renders.
+export async function getNextEvent(): Promise<SanityEvent | undefined> {
+  const activities = await getActivities();
+
+  return findNextEvent(activities?.events ?? [], Date.now());
 }
 
 interface Resources {

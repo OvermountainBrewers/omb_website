@@ -24,6 +24,15 @@ const breakMessages = [
   "Building the perfect brew station (v3.0) 🛠️",
 ];
 
+// Picks a stable message per section. This renders in a client component on a
+// prerendered page, so Math.random() chose one message on the server and a
+// different one in the browser, which React reports as a hydration mismatch.
+function breakMessageFor(sectionId: string): string {
+  let hash = 0;
+  for (const char of sectionId) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+  return breakMessages[hash % breakMessages.length];
+}
+
 export interface SectionWrapperProps {
   id: string;
   title: string;
@@ -35,7 +44,7 @@ export function SectionWrapper({
   id,
   title,
   emptyMessage,
-}: PropsWithChildren<SectionWrapperProps>): JSX.Element {
+}: PropsWithChildren<SectionWrapperProps>): React.JSX.Element {
   const hasActivities = Array.isArray(children) && children.length > 0;
 
   return (
@@ -47,9 +56,7 @@ export function SectionWrapper({
         </div>
       ) : (
         emptyMessage || (
-          <P className="flex flex-row justify-start">
-            {breakMessages[Math.floor(Math.random() * breakMessages.length)]}
-          </P>
+          <P className="flex flex-row justify-start">{breakMessageFor(id)}</P>
         )
       )}
     </section>

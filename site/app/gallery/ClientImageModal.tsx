@@ -42,10 +42,16 @@ export function ClientImageModal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, next, previous, onOpenChange]);
 
-  // Reset to initial index when dialog opens
-  useEffect(() => {
+  // Reset to the clicked image each time the dialog opens. Adjusting state
+  // during render (rather than in an effect) avoids a second render pass; the
+  // modal is not keyed by index instead because remounting on close would
+  // skip the dialog's close animation.
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
     if (open) setCurrentIndex(initialIndex);
-  }, [initialIndex, open]);
+  }
 
   const image = images[currentIndex];
 

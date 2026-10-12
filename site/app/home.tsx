@@ -4,6 +4,14 @@ import { useWindowSize } from "../lib/window_size";
 import Link from "next/link";
 import { H4, P } from "@/components/typography";
 
+function GTSymbol(): React.JSX.Element {
+  return (
+    <span className="group-hover:ml-2 transition-all whitespace-nowrap">
+      &nbsp;&nbsp;-&gt;
+    </span>
+  );
+}
+
 function Anchor({
   href,
   title,
@@ -12,15 +20,7 @@ function Anchor({
   href: string;
   title: string;
   description: string;
-}): JSX.Element {
-  function GTSymbol(): JSX.Element {
-    return (
-      <span className="group-hover:ml-2 transition-all whitespace-nowrap">
-        &nbsp;&nbsp;-&gt;
-      </span>
-    );
-  }
-
+}): React.JSX.Element {
   return (
     <Link
       href={href}

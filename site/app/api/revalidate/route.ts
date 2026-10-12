@@ -12,7 +12,11 @@ export async function POST(request: NextRequest) {
     const { _type } = await request.json();
 
     // Revalidate based on the document type
-    revalidateTag(_type.replace("_", ""));
+    // Next 16 requires a cache-life profile. `{ expire: 0 }` matches the old
+    // one-argument behaviour: the next request blocks and renders fresh data.
+    // The recommended "max" would serve one stale page first, so an editor who
+    // publishes in Sanity and refreshes would still see their old content.
+    revalidateTag(_type.replace("_", ""), { expire: 0 });
 
     return Response.json({ revalidated: true, now: Date.now() });
   } catch (err) {

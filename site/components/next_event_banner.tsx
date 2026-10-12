@@ -1,5 +1,4 @@
-import { getActivities } from "@/lib/sanity/sanity.endpoints";
-import { SanityEvent } from "@/lib/sanity/sanity.types";
+import { getNextEvent } from "@/lib/sanity/sanity.endpoints";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Suspense } from "react";
@@ -12,7 +11,7 @@ export async function NextEventBanner() {
   );
 }
 
-function NextEventBannerFallback(): JSX.Element {
+function NextEventBannerFallback(): React.JSX.Element {
   return (
     <div className="h-16 bg-secondary/50 animate-pulse rounded-lg mb-6 w-full flex items-center justify-center">
       Checking for next event...
@@ -20,16 +19,10 @@ function NextEventBannerFallback(): JSX.Element {
   );
 }
 
-async function NextEventBannerPromise(): Promise<JSX.Element | undefined> {
-  const maybeActivities = await getActivities();
-
-  // Find the next event using the same logic from activities page
-  const nextEvent = maybeActivities?.events
-    ?.reverse()
-    .find(
-      (event: SanityEvent) =>
-        event.date !== undefined && Date.parse(event.date) >= Date.now(),
-    );
+async function NextEventBannerPromise(): Promise<
+  React.JSX.Element | undefined
+> {
+  const nextEvent = await getNextEvent();
 
   return (
     nextEvent && (
