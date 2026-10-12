@@ -1,9 +1,8 @@
 import { google } from "googleapis";
 import type { drive_v3 } from "googleapis";
 import { Storage } from "@google-cloud/storage";
-import path from "path";
 import * as functions from "@google-cloud/functions-framework";
-import { processNewImage } from "./importDrivePhotos";
+import { processNewImage } from "./importDrivePhotos.js";
 import { createClient } from "@sanity/client";
 import { Request, Response } from "express";
 

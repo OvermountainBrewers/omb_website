@@ -1,7 +1,6 @@
 import { google } from "googleapis";
 import type { drive_v3 } from "googleapis";
 import { createClient } from "@sanity/client";
-import { GaxiosResponse } from "googleapis-common";
 import sharp from "sharp";
 
 const FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID!;
@@ -19,11 +18,15 @@ async function listAllFolders(drive: drive_v3.Drive, folderId: string) {
   let pageToken: string | null = null;
 
   do {
-    const response = (await drive.files.list({
-      q: `'${folderId}' in parents and mimeType='application/vnd.google-apps.folder'`,
-      fields: "nextPageToken, files(id, name)",
-      pageToken: pageToken || undefined,
-    })) as GaxiosResponse<drive_v3.Schema$FileList>;
+    // Annotated because `pageToken` feeds back into this call, which otherwise
+    // makes TypeScript infer `any` for its own initializer.
+    const response: { data: drive_v3.Schema$FileList } = await drive.files.list(
+      {
+        q: `'${folderId}' in parents and mimeType='application/vnd.google-apps.folder'`,
+        fields: "nextPageToken, files(id, name)",
+        pageToken: pageToken || undefined,
+      },
+    );
 
     if (response.data.files) {
       folders.push(...response.data.files);
@@ -86,7 +89,9 @@ export async function processNewImage({
       const convertedImage = await sharp(
         Buffer.from(imageResponse.data as ArrayBuffer),
         {
-          failOnError: false,
+          // sharp 0.35 no longer accepts `failOnError: false`; `failOn: "none"` is
+          // the replacement and keeps decoding partially corrupt photos.
+          failOn: "none",
           limitInputPixels: 0,
           sequentialRead: true,
           pages: 1,
